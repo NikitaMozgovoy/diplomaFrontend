@@ -1,0 +1,30 @@
+<!-- <form #createForm="ngForm" (ngSubmit)="onCreate(createForm)">
+    <input type="hidden" name="_method" value="PUT">
+    <input ngModel name="username" type="text">
+    <input ngModel name="email" type="email" name="email" id="email">
+    <input ngModel name="avatarUrl" type="url" name="avatarUrl" id="avatarUrl">
+    <button [disabled]="createForm.invalid" type="submit">Отправить</button>
+</form>
+  <div *ngFor="let user of users">
+    <div>
+      <ul>
+        <li>{{user?.id}}</li>
+        <li>{{user?.username}}</li>
+        <li>{{user?.email}}</li>
+        <li><img src="{{user?.avatarUrl}}" alt=""></li>
+      </ul>
+      <form #updateForm="ngForm">
+        <input type="hidden" name="_method" value="PUT">
+        <input ngModel="{{user.username}}" name="username" type="text">
+        <input ngModel="{{user.email}}" type="email" name="email" id="email">
+        <input ngModel="{{user.avatarUrl}}" type="url" name="avatarUrl" id="avatarUrl">
+        <button (click)="onUpdate(user.id, updateForm)" type="submit">Отправить</button>
+      </form>
+    </div> 
+  </div> -->
+
+<div *ngFor="let film of films">
+    <div>
+        <a routerLink="/films/{{film.url}}">{{film?.name}}</a>
+    </div>
+</div>
