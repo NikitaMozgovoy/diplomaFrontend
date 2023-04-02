@@ -34,14 +34,14 @@
                    <label for="name">Название</label>
                    <input ngModel="{{film.name}}" name="name" type="text" class="form-control" id="name" placeholder="Название">
                 </div>
-                <input type="hidden" ngModel="{{film.id}}" name="id" class="form-control" id="id">
+                <input type="hidden" [(ngModel)]="film.id" name="id" class="form-control" id="id">
                 <div class="form-group">
                    <label for="email">Режиссер</label>
-                   <input ngModel="{{film.director}}" name="director" type="text" id="director" class="form-control" placeholder="Режиссер">
+                   <input [(ngModel)]="film.director" name="director" type="text" id="director" class="form-control" placeholder="Режиссер">
                 </div>
                 <div class="form-group">
                     <label for="email">Url</label>
-                    <input ngModel="{{film.url}}" name="url" type="text" id="url" class="form-control" placeholder="Url">
+                    <input [(ngModel)]="film.url" name="url" type="text" id="url" class="form-control" placeholder="Url">
                  </div>
                 <div class="modal-footer">
                    <button type="button" id="" data-dismiss="modal" class="btn btn-secondary">Close</button>

@@ -1,0 +1,43 @@
+<div class="row justify-content-md-center">
+
+    <h3 style="text-align: center; margin: 3rem;">Авторизоваться</h3>
+
+    <form class="col-6"
+        name="form"
+        (ngSubmit)="f.form.valid && onSubmit()"
+        #f="ngForm"
+        novalidate>
+
+        <div class="form-outline mb-4">
+            <input type="email" class="form-control" 
+                name="username"
+                [(ngModel)]="form.username"
+                required
+                #username="ngModel"/>
+
+            <label class="form-label">Email address</label>
+        </div>
+    
+        <div class="form-outline mb-4">
+            <input type="password" class="form-control" 
+                name="password"
+                [(ngModel)]="form.password"
+                required
+                #password="ngModel"/>
+            <label class="form-label">Password</label>
+        </div>
+    
+        <div class="row">
+
+            <div class="col">
+                <button type="submit" class="btn btn-primary btn-block" style="width: 200px;">Sign in</button>
+            </div>
+
+            <div class="col align-self-end">
+                <a href="/signup">Нет аккаунта? Зарегистрироваться</a>
+            </div>
+            
+        </div>
+    </form>
+
+</div>
