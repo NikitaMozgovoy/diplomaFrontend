@@ -7,6 +7,7 @@
     <div class="new-review-section collapse" id="addCollapse">
         <form #addForm="ngForm" (ngSubmit)="onAddReview(addForm, film.id)">
             <textarea name="text" id="text" ngModel ></textarea>
+            <!-- <input name="author" id="author" type="hidden" value="{{userId}}" ngModel> -->
             <button type="submit">Save changes</button>
         </form>
     </div>
@@ -14,9 +15,9 @@
     <div *ngFor="let review of reviews">
         <!-- {{review.film.id}}
         {{film.id}} -->
-        <div *ngIf="review.film.id==film.id">
+        <div>
             {{review.text}}
-            <div *ngIf="review.author.id==1">
+            <div *ngIf="review.author.id==userId">
                 <button id="add-button" data-toggle="collapse" data-target="#editCollapse" type="button">
                     Редактировать
                 </button>

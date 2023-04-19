@@ -1,10 +1,12 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { Film } from '../models/film';
 import { FilmService } from '../services/film.service';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
+import { UserService } from '../services/user.service';
+import { CustomUser } from '../models/customUser';
 
 @Component({
   selector: 'app-film',

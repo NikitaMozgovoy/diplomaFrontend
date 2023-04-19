@@ -5,6 +5,9 @@ import { environment } from 'src/environments/environment';
 import { Film } from '../models/film';
 import { Review } from '../models/review';
 import { ReviewService } from '../services/review.service';
+import { CustomUser } from '../models/customUser';
+import { UserService } from '../services/user.service';
+import { ReviewDTO } from '../dto/reviewDTO';
 
 @Component({
   selector: 'app-review',
@@ -14,15 +17,16 @@ import { ReviewService } from '../services/review.service';
 export class ReviewComponent implements OnInit{
   @Input() film!:Film;
   public filmUrl!: string;
-  public reviews!: Review[];
+  public reviews!: ReviewDTO[];
   public apiServerUrl! : string;
+  userId!: number;
 
   constructor(private reviewService: ReviewService){};
 
   ngOnInit(): void {
     this.apiServerUrl = environment.apiBaseUrl;
     this.getReviews();
-    console.log(this.reviews);
+    this.userId=Number(sessionStorage.getItem("id"));
   }
 
   public getReviews(): void{
@@ -32,7 +36,7 @@ export class ReviewComponent implements OnInit{
     //     next: (response: Review[]) => {this.reviews=response}
     //   }
     // )
-    this.reviewService.getAllReviews().subscribe(
+    this.reviewService.getFilmReviews(this.film.id).subscribe(
       response => {this.reviews=response}
     )
   }

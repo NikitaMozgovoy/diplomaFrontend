@@ -14,8 +14,7 @@ export class SigninComponent {
 
   isLoggedIn = false;
   isLoginFailed = false;
-  errorMessage = '';
-  roles: string[] = [];
+  role: string = '';
 
   constructor(private signinService: SigninService) { }
 
@@ -32,7 +31,7 @@ export class SigninComponent {
     );
   }
 
-  redirectToProfile() {
+  redirectToMain() {
     window.location.href = '/';
   }
 

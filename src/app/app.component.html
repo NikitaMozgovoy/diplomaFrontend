@@ -5,5 +5,20 @@
         <li><a routerLink="/films">Films</a></li>
     </ul>
 </nav>
+{{username}}
+<button (click)="logout()" type="button">Выйти</button>
+
+<form>
+    <div class="form-row align-items-center">
+      <div class="col-auto">
+        <label class="sr-only" for="inlineFormInput">Name</label>
+        <input type="text" class="form-control mb-2" id="inlineFormInput" placeholder="Введите название">
+      </div>
+      <div class="col-auto">
+        <button type="submit" class="btn btn-primary mb-2">Поискы</button>
+      </div>
+    </div>
+  </form>
+
 </header>
 <router-outlet></router-outlet>

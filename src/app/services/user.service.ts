@@ -27,4 +27,8 @@ export class UserService{
     public deleteUser(userId: number):Observable<void>{
         return this.http.delete<void>(`${this.apiServerUrl}/users/delete/${userId}`);
     }
+
+    public getUserById(userId:number):Observable<CustomUser>{
+        return this.http.get<CustomUser>(`${this.apiServerUrl}/users/find/${userId}`);
+    }
 }

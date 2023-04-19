@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Film } from '../models/film';
 import { Review } from '../models/review';
+import { ReviewDTO } from '../dto/reviewDTO';
 
 @Injectable({
   providedIn: 'root'
@@ -12,8 +13,8 @@ export class ReviewService {
   private apiServerUrl = environment.apiBaseUrl;
   constructor(private http: HttpClient) { }
 
-    public getAllReviews():Observable<Review[]>{
-        return this.http.get<Review[]>(`${this.apiServerUrl}/reviews`);
+    public getAllReviews():Observable<ReviewDTO[]>{
+        return this.http.get<ReviewDTO[]>(`${this.apiServerUrl}/reviews`);
     }
     
     public addReview(review : Review, filmId: number):Observable<Review>{
@@ -28,8 +29,8 @@ export class ReviewService {
         return this.http.delete<void>(`${this.apiServerUrl}/reviews/delete/${reviewId}`);
     }
 
-    public getFilmReviews(filmId: number):Observable<Review[]>{
-        return this.http.get<Review[]>(`${this.apiServerUrl}/reviews/${filmId}`);
+    public getFilmReviews(filmId: number):Observable<ReviewDTO[]>{
+        return this.http.get<ReviewDTO[]>(`${this.apiServerUrl}/reviews/${filmId}`);
     }
 
 }

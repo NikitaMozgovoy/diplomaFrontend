@@ -10,6 +10,14 @@ import { UserService } from './services/user.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent{
-    
+export class AppComponent implements OnInit{
+  username!: String | null;
+    ngOnInit(): void {
+      this.username=sessionStorage.getItem("username");
+    }
+
+    logout(): void{
+      sessionStorage.clear();
+      window.location.reload();
+    }
 }
