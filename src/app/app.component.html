@@ -1,24 +1,51 @@
-<header>
-<nav>
-    <ul>
-        <li><a aria-current="page" href="#">Home</a></li>
-        <li><a routerLink="/films">Films</a></li>
-    </ul>
-</nav>
-{{username}}
-<button (click)="logout()" type="button">Выйти</button>
+<div>
+  <header>
+    <nav class="p-4 navbar navbar-expand-lg navbar-light bg-white">
+      <div class="collapse navbar-collapse  justify-content-evenly" id="navbarNavDropdown">
+        <a href="/"><img ngSrc="../assets/logo.png" height="70" width="120"></a>
+        <ul class="navbar-nav">
+<!--          <li class="nav-item nav-link">-->
+<!--            <a class="nav-link" href="#">Features</a>-->
+<!--          </li>-->
+<!--          <li class="nav-item">-->
+<!--            <a class="nav-link" href="#">Pricing</a>-->
+<!--          </li>-->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Типы
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="#">Фильмы</a>
+                            <a class="dropdown-item" href="#">Сериалы</a>
+                <!--            <div class="dropdown-divider"></div>-->
+                            <a class="dropdown-item" href="#">Мультфильмы</a>
+                            <a class="dropdown-item" href="#">Аниме</a>
+                            <a class="dropdown-item" href="#">Мульт-сериалы</a>
+                            <a class="dropdown-item" href="#">ТВ-шоу</a>
+            </div>
+          </li>
+        </ul>
+          <form class="form-inline">
+            <input class="form-control mr-sm-2" type="search" id="searchQuery" name="searchQuery" placeholder="Введите название" [(ngModel)]="searchQuery">
+            <button class="btn btn-outline-success m-2 my-sm-0" type="submit" (click)="onSearchSubmit()">Поиск</button>
+          </form>
 
-<form>
-    <div class="form-row align-items-center">
-      <div class="col-auto">
-        <label class="sr-only" for="inlineFormInput">Name</label>
-        <input type="text" class="form-control mb-2" id="inlineFormInput" placeholder="Введите название">
+        <div *ngIf="username; else login">
+        {{username}}
+        <button class="btn btn-primary mb-2" type="button" (click)="logout()">Выйти</button>
+        </div>
+        <ng-template #login> <button onclick="location.href='/signin'" class="btn btn-primary mb-2" type="button">Войти</button></ng-template>
       </div>
-      <div class="col-auto">
-        <button type="submit" class="btn btn-primary mb-2">Поискы</button>
-      </div>
-    </div>
-  </form>
 
-</header>
-<router-outlet></router-outlet>
+
+    </nav>
+  </header>
+  <div class="row">
+  <router-outlet></router-outlet>
+  </div>
+  <footer class="container">
+    <p>При наличии ошибок, пожалуйста, сообщите, о них на почту: reviews.there@gmail.com</p>
+    <p>2023, Отзывы.тут</p>
+  </footer>
+</div>
+

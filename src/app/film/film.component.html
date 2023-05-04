@@ -1,74 +1,32 @@
+<article>
+<ng-container *ngIf="film"  id="film-info">
+      <div class="container">
+      <div class="row">
+        <div class="col-md-4">
+          <img alt="Постер" ngSrc="{{film.posterUrl}}" [width]="300" [height]="450">
+        </div>
+        <div class="col-md-6">
+          <h1>{{film.name}} ({{film.year}})</h1>
 
-    <div id="main-container">
-        <img class="cover" src="{{film.imageUrl}}">
-        <p>{{film.name}}</p>
-        <p>{{film.director}}</p>
-        <p>{{film.genres}}</p>
-        <button (click)="openModal(film, 'edit')" type="button">Изменить</button>
-        <button (click)="openModal(film, 'delete')" type="button">Удалить</button>
-        <app-review [film]="film"></app-review>
-    </div>
+          Жанры:
+          <div class="row d-inline-block" *ngFor="let genre of film.genresList">
+            <h6 class="m-0">{{genre}}&nbsp;&nbsp;</h6>
+          </div>
 
+          <p class="m-0">Режиссеры: {{film.director}} </p>
 
-<!-- <div>
-    <form #updateForm="ngForm">
-        <input ngModel="{{film.name}}" name="name" type="text">
-        <input ngModel="{{film.director}}" name="director" type="text" id="director">
-        <input ngModel="{{film.imageUrl}}" name="imageUrl" type="url" id="imageUrl">
-        <input ngModel="{{film.url}}" name="url" type="text" id="url">
-        <button (click)="onUpdate(updateForm, film.id)" type="submit">Отправить</button>
-      </form>
-</div> -->
-<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="employeeEditModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-       <div class="modal-content">
-          <div class="modal-header">
-             <h5 class="modal-title" id="updateEmployeeModalLabel">Edit Film {{film.name}}</h5>
-             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-             <span aria-hidden="true">&times;</span>
-             </button>
+          Страны:
+          <div class="row d-inline-block m-0" *ngFor="let country of film.countriesList">
+            <h6>{{country}} &nbsp;&nbsp;</h6>
           </div>
-          <div class="modal-body">
-             <form #editForm="ngForm">
-                <div class="form-group">
-                   <label for="name">Название</label>
-                   <input ngModel="{{film.name}}" name="name" type="text" class="form-control" id="name" placeholder="Название">
-                </div>
-                <input type="hidden" [(ngModel)]="film.id" name="id" class="form-control" id="id">
-                <div class="form-group">
-                   <label for="email">Режиссер</label>
-                   <input [(ngModel)]="film.director" name="director" type="text" id="director" class="form-control" placeholder="Режиссер">
-                </div>
-                <div class="form-group">
-                    <label for="email">Url</label>
-                    <input [(ngModel)]="film.url" name="url" type="text" id="url" class="form-control" placeholder="Url">
-                 </div>
-                <div class="modal-footer">
-                   <button type="button" id="" data-dismiss="modal" class="btn btn-secondary">Close</button>
-                   <button (click)="onUpdate(editForm, film.id)" type="submit" data-dismiss="modal" class="btn btn-primary" >Save changes</button>
-                </div>
-             </form>
-          </div>
-       </div>
-    </div>
-  </div>
+        </div>
+      </div>
+      </div>
 
-  <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModelLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-       <div class="modal-content">
-          <div class="modal-header">
-             <h5 class="modal-title" id="deleteModelLabel">Удалить фильм</h5>
-             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-             <span aria-hidden="true">&times;</span>
-             </button>
-          </div>
-          <div class="modal-body">
-             <p>Вы уверены, что хотите удалить фильм "{{film.name}}?"</p>
-             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-                <button (click)="onDelete(film.id)" class="btn btn-danger" data-dismiss="modal">Yes</button>
-             </div>
-          </div>
-       </div>
-    </div>
-  </div>
+    </ng-container>
+    <ng-container *ngFor="let review of film.kinopoiskReviews">
+      {{review.author}}
+      {{review.review}}
+    </ng-container>
+    <!--        <app-review [film]="film"></app-review>-->
+</article>

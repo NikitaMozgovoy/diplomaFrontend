@@ -20,11 +20,26 @@
         <input ngModel="{{user.avatarUrl}}" type="url" name="avatarUrl" id="avatarUrl">
         <button (click)="onUpdate(user.id, updateForm)" type="submit">Отправить</button>
       </form>
-    </div> 
-  </div> -->
-
-<div *ngFor="let film of films">
-    <div>
-        <a routerLink="/films/{{film.url}}">{{film?.name}}</a>
     </div>
+  </div> -->
+<div class="container">
+  <div class="row">
+    <nav class="col-3">
+    </nav>
+    <div class="col">
+      <aside class="col-12"><h3>Отзывы о фильмах и кино</h3>
+        Ежегодно во всем мире снимают сотни фильмов, сериалов и аниме. Выбрать что-то действительно интересное, ориентируясь лишь по  описаниям и трейлерам крайне сложно, ведь создатели всеми силами  стараются заинтересовать зрителей ради прибылей. Действительно понять, хороша ли кинолента и чего именно ждать от просмотра, позволяют лишь отзывы, оставленные самими зрителями.
+      </aside>
+      <div class="row">
+        <article class="col-12">
+          <div style="background-color: transparent !important;" *ngFor="let film of films">
+              <div class="container item-card">
+                <img ngSrc="{{film.poster}}" [width]="175" [height]="260">
+                  <a routerLink="/films/{{film.id}}">{{film?.name}}</a>
+              </div>
+          </div>
+        </article>
+        </div>
+      </div>
+  </div>
 </div>

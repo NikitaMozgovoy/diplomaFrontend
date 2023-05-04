@@ -3,10 +3,8 @@ import { Component, OnInit, Output } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { Film } from '../models/film';
 import { FilmService } from '../services/film.service';
-import { NgForm } from '@angular/forms';
-import { Router } from '@angular/router';
-import { UserService } from '../services/user.service';
-import { CustomUser } from '../models/customUser';
+import {FilmDTO} from "../dto/FilmDTO";
+import {last} from "rxjs";
 
 @Component({
   selector: 'app-film',
@@ -14,32 +12,28 @@ import { CustomUser } from '../models/customUser';
   styleUrls: ['./film.component.css']
 })
 export class FilmComponent implements OnInit{
-  public film!: Film;
+  public film!: FilmDTO;
   public apiServerUrl! : string;
-  public filmUrl!: string;
-  constructor(private filmService: FilmService, private router: Router){};
+  constructor(private filmService: FilmService){};
 
   ngOnInit(): void {
-    this.filmUrl=window.location.pathname.split("/")[2];
     this.apiServerUrl = environment.apiBaseUrl;
     this.getFilm();
+    console.log();
   }
 
   public getFilm(): void{
-    // this.filmService.getFilmByUrl(this.filmUrl).subscribe(
-    //   {
-    //     error: (err: HttpErrorResponse) => {alert(err.message)},
-    //     next: (response: Film) => {this.film=response}
-    //   }
-    // )
-    this.filmService.getFilmByUrl(this.filmUrl).subscribe(
-    (response: Film) => {
-      this.film=response;
-    },
-    (error: HttpErrorResponse) =>{
-      alert(error.message);
-    });
+    this.filmService.getFilmById(Number(window.location.pathname.split("/")[2])).subscribe(
+      {
+        error: (err: HttpErrorResponse) => {alert(err.message)},
+        next: (response: FilmDTO) => {
+          this.film=response;
+        }
+      }
+    )
   }
+
+
 
   public openModal(film: Film, mode: string): void{
     const container = document.getElementById("main-container");
@@ -57,26 +51,6 @@ export class FilmComponent implements OnInit{
     button.click();
   }
 
-   public onUpdate(editForm: NgForm, filmId: number) :void {
-    this.filmService.updateFilm(editForm.value, filmId).subscribe(
-      (response: Film) => {
-        console.log(response);
-        this.getFilm();
-      },
-      (error: HttpErrorResponse) =>{
-        alert(error.message);
-      }
-    );
-    setTimeout(()=>window.location.replace(window.location.href.split("/").slice(0, -1).join("/")+"/"+editForm.value["url"]), 400);
-  }
 
-public onDelete(filmId: number):void{
-    this.filmService.deleteFilm(filmId).subscribe(
-      {
-        next: (response: void) => {window.location.replace(window.location.protocol+"//"+window.location.host)},
-        error: (err: HttpErrorResponse) => {alert(err.message)}
-      }
-    )
-}
-
+  protected readonly last = last;
 }

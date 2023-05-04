@@ -10,6 +10,8 @@ import { MainpageComponent } from './mainpage/mainpage.component';
 import { ReviewComponent } from './review/review.component';
 import { SigninComponent } from './signin/signin.component';
 import { SignupComponent } from './signup/signup.component';
+import {NgOptimizedImage} from "@angular/common";
+import { SearchComponent } from './search/search.component';
 
 @NgModule({
   declarations: [
@@ -18,14 +20,16 @@ import { SignupComponent } from './signup/signup.component';
     MainpageComponent,
     ReviewComponent,
     SigninComponent,
-    SignupComponent
+    SignupComponent,
+    SearchComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    FormsModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        HttpClientModule,
+        FormsModule,
+        NgOptimizedImage
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })

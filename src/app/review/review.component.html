@@ -1,35 +1,35 @@
-<div id="review-section">
-    <div id="add-review">
-        <button id="add-button" data-toggle="collapse" data-target="#addCollapse" type="button">
-            Оставить отзыв
-        </button>
-    </div>
-    <div class="new-review-section collapse" id="addCollapse">
-        <form #addForm="ngForm" (ngSubmit)="onAddReview(addForm, film.id)">
-            <textarea name="text" id="text" ngModel ></textarea>
-            <!-- <input name="author" id="author" type="hidden" value="{{userId}}" ngModel> -->
-            <button type="submit">Save changes</button>
-        </form>
-    </div>
+<!--<div id="review-section">-->
+<!--    <div id="add-review">-->
+<!--        <button id="add-button" data-toggle="collapse" data-target="#addCollapse" type="button">-->
+<!--            Оставить отзыв-->
+<!--        </button>-->
+<!--    </div>-->
+<!--    <div class="new-review-section collapse" id="addCollapse">-->
+<!--        <form #addForm="ngForm" (ngSubmit)="onAddReview(addForm, film.id)">-->
+<!--            <textarea name="text" id="text" ngModel ></textarea>-->
+<!--            &lt;!&ndash; <input name="author" id="author" type="hidden" value="{{userId}}" ngModel> &ndash;&gt;-->
+<!--            <button type="submit">Save changes</button>-->
+<!--        </form>-->
+<!--    </div>-->
 
-    <div *ngFor="let review of reviews">
-        <!-- {{review.film.id}}
-        {{film.id}} -->
-        <div>
-            {{review.text}}
-            <div *ngIf="review.author.id==userId">
-                <button id="add-button" data-toggle="collapse" data-target="#editCollapse" type="button">
-                    Редактировать
-                </button>
-                <div class="new-review-section collapse" id="editCollapse">
-                    <form #editForm="ngForm" (ngSubmit)="onEditReview(editForm, review.id)">
-                        <textarea name="text" id="text" [(ngModel)]="review.text"></textarea>
-                        <button type="submit">Save changes</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+<!--    <div *ngFor="let review of reviews">-->
+<!--        &lt;!&ndash; {{review.film.id}}-->
+<!--        {{film.id}} &ndash;&gt;-->
+<!--        <div>-->
+<!--            {{review.text}}-->
+<!--            <div *ngIf="review.author.id==userId">-->
+<!--                <button id="add-button" data-toggle="collapse" data-target="#editCollapse" type="button">-->
+<!--                    Редактировать-->
+<!--                </button>-->
+<!--                <div class="new-review-section collapse" id="editCollapse">-->
+<!--                    <form #editForm="ngForm" (ngSubmit)="onEditReview(editForm, review.id)">-->
+<!--                        <textarea name="text" id="text" [(ngModel)]="review.text"></textarea>-->
+<!--                        <button type="submit">Save changes</button>-->
+<!--                    </form>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
 
 

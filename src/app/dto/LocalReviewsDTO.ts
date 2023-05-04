@@ -1,6 +1,6 @@
-import { ReviewAuthorDTO } from "./reviewAuthorDTO";
+import { ReviewAuthorDTO } from "./ReviewAuthorDTO";
 
-export class ReviewDTO {
+export class LocalReviewsDTO {
     constructor(
         public id: number,
         public author: ReviewAuthorDTO,

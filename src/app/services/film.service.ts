@@ -1,8 +1,10 @@
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { HttpClient } from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import { environment } from 'src/environments/environment'
 import { Film } from "../models/film";
+import {FilmDTO} from "../dto/FilmDTO";
+import {FilmsListDTO} from "../dto/FilmsListDTO";
 
 @Injectable({
     providedIn: 'root'
@@ -12,23 +14,18 @@ export class FilmService{
 
     constructor(private http: HttpClient){}
 
-    public getFilms():Observable<Film[]>{
-        return this.http.get<Film[]>(`${this.apiServerUrl}/films`);
+    public getFilms(pageNumber: number):Observable<FilmsListDTO[]>{
+        return this.http.get<FilmsListDTO[]>(`${this.apiServerUrl}/films/page/${pageNumber}`);
     }
 
-    public createFilm(film : Film):Observable<Film>{
-        return this.http.post<Film>(`${this.apiServerUrl}/films/add`, film);
-    }
+  public getFilmById(id: number):Observable<FilmDTO>{
+    return this.http.get<FilmDTO>(`${this.apiServerUrl}/films/${id}`);
+  }
 
-    public updateFilm(film: Film, filmId: number):Observable<Film>{
-        return this.http.put<Film>(`${this.apiServerUrl}/films/update/${filmId}`, film);
-    }
-    
-    public deleteFilm(filmId: number):Observable<void>{
-        return this.http.delete<void>(`${this.apiServerUrl}/films/delete/${filmId}`);
-    }
-
-    public getFilmByUrl(filmUrl:string):Observable<Film>{
-        return this.http.get<Film>(`${this.apiServerUrl}/films/${filmUrl}`);
-    }
+  public getSearchResults(query: string, pageNumber: number):Observable<FilmsListDTO[]>{
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append("query",encodeURIComponent(query));
+    queryParams = queryParams.append("page",pageNumber);
+    return this.http.get<FilmsListDTO[]>(`${this.apiServerUrl}/films/search`, {params:queryParams});
+  }
 }

@@ -1,0 +1,21 @@
+article{
+  margin: 50px 45px 0 0;
+  padding:36px;
+  background: white;
+}
+aside{
+  margin:16px 45px 0 0;
+  background: white;
+  padding:20px;
+}
+nav{
+  margin:16px 36px 0 0;
+  background: white;
+}
+.row{
+  margin:0 auto;
+}
+.container{
+  padding:0;
+  margin: 0 auto;
+}
