@@ -23,7 +23,7 @@ export class SigninComponent {
     this.signinService.signin(username, password).subscribe(
       data => {
         this.isLoggedIn = true;
-        window.location.href = '/';
+        window.history.back();
       },
       err => {
         alert(err.message);
@@ -31,8 +31,5 @@ export class SigninComponent {
     );
   }
 
-  redirectToMain() {
-    window.location.href = '/';
-  }
 
 }

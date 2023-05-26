@@ -2,7 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { environment } from 'src/environments/environment';
-import { CustomUser } from './models/customUser';
+import { UserModel } from './models/UserModel';
 import { UserService } from './services/user.service';
 import {FilmService} from "./services/film.service";
 import {FilmDTO} from "./dto/FilmDTO";
@@ -20,7 +20,7 @@ export class AppComponent implements OnInit{
   username!: string | null;
   searchQuery: string="";
 
-  constructor(private filmService: FilmService, private searchService: SearchService, private router: Router){};
+  constructor(private filmService: FilmService, protected searchService: SearchService, private router: Router){};
 
     ngOnInit(): void {
       this.username=sessionStorage.getItem("username");
@@ -34,18 +34,10 @@ export class AppComponent implements OnInit{
     onSearchSubmit(): void{
       this.searchService.searchQuery = this.searchQuery;
       console.log(this.searchService.searchQuery);
-      this.filmService.getSearchResults(this.searchService.searchQuery, 1).subscribe(
-        {
-          error: (err: HttpErrorResponse) => {alert(err.message)},
-          next: (response: FilmsListDTO[]) => {
-            console.log(response);
-            this.router.navigate((["/search"]), {queryParams:
-                {
-                  query:this.searchQuery,
-                  page:1
-                }})
-          }
-        }
-      );
+      this.router.navigate((["/search"]), {queryParams:
+          {
+            query:this.searchQuery,
+            page:1
+          }})
     }
 }

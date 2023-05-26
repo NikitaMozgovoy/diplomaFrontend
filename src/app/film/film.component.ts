@@ -1,7 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit, Output } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { Film } from '../models/film';
 import { FilmService } from '../services/film.service';
 import {FilmDTO} from "../dto/FilmDTO";
 import {last} from "rxjs";
@@ -19,9 +18,9 @@ export class FilmComponent implements OnInit{
   ngOnInit(): void {
     this.apiServerUrl = environment.apiBaseUrl;
     this.getFilm();
-    console.log();
   }
 
+  @Output()
   public getFilm(): void{
     this.filmService.getFilmById(Number(window.location.pathname.split("/")[2])).subscribe(
       {
@@ -32,25 +31,4 @@ export class FilmComponent implements OnInit{
       }
     )
   }
-
-
-
-  public openModal(film: Film, mode: string): void{
-    const container = document.getElementById("main-container");
-    const button = document.createElement('button');
-    button.type="button";
-    button.style.display = 'none';
-    button.setAttribute('data-toggle', 'modal');
-    if (mode==='edit'){
-      button.setAttribute('data-target', '#editModal');
-    }
-    if (mode==='delete'){
-      button.setAttribute('data-target', '#deleteModal');
-    }
-    container?.appendChild(button);
-    button.click();
-  }
-
-
-  protected readonly last = last;
 }

@@ -31,5 +31,50 @@
 <!--        </div>-->
 <!--    </div>-->
 <!--</div>-->
+<div class="row p-lg-1">
+<h2>Локальные отзывы</h2>
+<div *ngIf="film.localReviews.length==0; else local">Отзывов еще нет. Станьте первым!</div>
+<ng-template #local>
+  <div *ngFor="let review of film.localReviews">
+    <div class="review-item">
+      <p><b>{{review.author.username}}</b></p>
+      <p>{{review.text}}</p>
+    </div>
+
+    <div *ngIf="sessionStorage.getItem('username')==review.author.username">
+      <button id="add-button" data-bs-toggle="collapse" data-bs-target="#editCollapse" type="button">Редактировать</button>
+        <div class="new-review-section collapse" id="editCollapse">
+          <form #editForm="ngForm" (ngSubmit)="onEditReview(editForm, review)">
+            <textarea name="text" id="text" [(ngModel)]="review.text"></textarea>
+            <button type="submit">Сохранить</button>
+          </form>
+        </div>
+    </div>
+
+  </div>
+</ng-template>
 
 
+  <h2>Отзывы с Кинопоиск</h2>
+  <div *ngFor="let review of film.kinopoiskReviews">
+    <div class="review-item">
+      <p><b>{{review.author}}</b></p>
+      <p>{{review.review}}</p>
+    </div>
+  </div>
+
+  <h2>Отзывы с TMDb</h2>
+  <div *ngIf="film.tmdbReviews!=null; else noTmdb">
+    <div *ngFor="let review of film.tmdbReviews">
+      <div class="review-item">
+        <p><b>{{review.author}}</b></p>
+        <p>{{review.text}}</p>
+        <div [ngSwitch]="review.rating">
+          <ng-template ngSwitchCase="null">Пользователь не оставил оценку</ng-template>
+          <ng-template ngSwitchDefault>{{review.rating}}</ng-template>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ng-template #noTmdb><p>Невозможно получить отзывы с сервиса или они отсутствуют. Попробуйте использовать ВПН </p></ng-template>
+</div>

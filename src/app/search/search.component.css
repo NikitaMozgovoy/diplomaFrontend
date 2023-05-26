@@ -1,0 +1,29 @@
+article{
+  margin: 30px 45px 0 0;
+  padding:60px;
+  background: white;
+}
+aside{
+  margin:25px 45px 0 0;
+  background: white;
+  padding:20px;
+}
+nav{
+  margin:25px 36px 0 0;
+  background: white;
+  padding:40px;
+}
+.row{
+  margin:0 auto;
+}
+.container{
+  padding:0;
+  margin: 0 auto;
+}
+.item-card{
+  margin-top:3%;
+}
+article a{
+  text-decoration: none;
+  color:black;
+}

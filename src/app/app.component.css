@@ -1,15 +1,23 @@
 footer{
   background: white;
-  left:15%;
-  right:15%;
-  position: absolute;
-  height: 10%;
-  padding:1% 1% 1% 2%;
-  bottom: 0;
+  margin-top: 25px;
+  padding: 1.5% 1% 1% 2%;
   color:gray;
 }
 form{
   display: flex;
   justify-content: space-between;
   justify-items: auto;
+}
+.container{
+  padding-left: 0;
+}
+.logo{
+  margin-right: 10%;
+}
+.navbar-nav{
+  margin-right: 10%;
+}
+.form-inline{
+  margin-right: 10%;
 }

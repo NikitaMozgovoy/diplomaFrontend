@@ -1,9 +1,8 @@
-import { CustomUser } from "./customUser";
-import { Film } from "./film";
+import { UserModel } from "./UserModel";
 
 export interface Review{
     id: number;
     text: string;
-    film: Film;
-    author: CustomUser;
+    filmId: number;
+    author: UserModel;
 }

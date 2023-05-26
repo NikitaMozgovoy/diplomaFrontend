@@ -1,0 +1,127 @@
+{
+  "paramName": "genres.name",
+  "anime": {
+    "value": false,
+    "name":"аниме"
+  },
+  "biography": {
+    "value":false,
+    "name":"биография"
+  },
+  "action":{
+    "value":false,
+    "name":"боевик"
+  },
+  "western":{
+    "value":false,
+    "name":"вестерн"
+  },
+  "war":{
+    "value":false,
+    "name":"военный"
+  },
+  "detective":{
+    "value":false,
+    "name":"детектив"
+  },
+  "children":{
+    "value":false,
+    "name":"детский"
+  },
+  "adult":{
+    "value":false,
+    "name":"для взрослых"
+  },
+  "documentary":{
+    "value":false,
+    "name":"документальный"
+  },
+  "drama":{
+    "value":false,
+    "name":"драма"
+  },
+  "game":{
+    "value":false,
+    "name":"игра"
+  },
+  "history":{
+    "value":false,
+    "name":"история"
+  },
+  "comedy":{
+    "value":false,
+    "name":"комедия"
+  },
+  "concert":{
+    "value":false,
+    "name":"концерт"
+  },
+  "short_film": {
+    "value": false,
+    "name": "короткометражка"
+  },
+  "criminal": {
+    "value": false,
+    "name": "криминал"
+  },
+  "melodrama": {
+    "value": false,
+    "name": "мелодрама"
+  },
+  "music": {
+    "value": false,
+    "name": "музыка"
+  },
+  "musical": {
+    "value": false,
+    "name": "мюзикл"
+  },
+  "news": {
+    "value": false,
+    "name": "новости"
+  },
+  "adventures": {
+    "value": false,
+    "name": "приключения"
+  },
+  "real_tv": {
+    "value": false,
+    "name": "реальное ТВ"
+  },
+  "family": {
+    "value": false,
+    "name": "семейный"
+  },
+  "sport": {
+    "value": false,
+    "name": "спорт"
+  },
+  "talk_show": {
+    "value": false,
+    "name": "ток-шоу"
+  },
+  "thriller": {
+    "value": false,
+    "name": "триллер"
+  },
+  "horror": {
+    "value": false,
+    "name": "ужасы"
+  },
+  "fiction": {
+    "value": false,
+    "name": "фантастика"
+  },
+  "noir": {
+    "value": false,
+    "name": "фильм-нуар"
+  },
+  "fantasy": {
+    "value": false,
+    "name": "фэнтези"
+  },
+  "ceremony": {
+    "value": false,
+    "name": "церемония"
+  }
+}

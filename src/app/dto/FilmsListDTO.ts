@@ -4,7 +4,7 @@ export class FilmsListDTO {
     public name: string,
     public year: number,
     public countries: any,
-    public poster: any,
+    public posterUrl: string,
     public genres: any,
     public type: string,
     public description: string

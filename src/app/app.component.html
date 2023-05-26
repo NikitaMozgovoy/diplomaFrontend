@@ -1,8 +1,8 @@
 <div>
   <header>
     <nav class="p-4 navbar navbar-expand-lg navbar-light bg-white">
-      <div class="collapse navbar-collapse  justify-content-evenly" id="navbarNavDropdown">
-        <a href="/"><img ngSrc="../assets/logo.png" height="70" width="120"></a>
+      <div class="collapse navbar-collapse  justify-content-center" id="navbarNavDropdown">
+        <a class="logo" href="/"><img ngSrc="../assets/logo.png" height="70" width="120"></a>
         <ul class="navbar-nav">
 <!--          <li class="nav-item nav-link">-->
 <!--            <a class="nav-link" href="#">Features</a>-->
@@ -26,15 +26,15 @@
           </li>
         </ul>
           <form class="form-inline">
-            <input class="form-control mr-sm-2" type="search" id="searchQuery" name="searchQuery" placeholder="Введите название" [(ngModel)]="searchQuery">
+            <input class="form-control mr-sm-2" type="search" id="searchQuery" name="searchQuery" placeholder="Введите название" [value]="searchService.searchQuery" [defaultValue]="searchService.searchQuery" [(ngModel)]="searchQuery">
             <button class="btn btn-outline-success m-2 my-sm-0" type="submit" (click)="onSearchSubmit()">Поиск</button>
           </form>
 
         <div *ngIf="username; else login">
-        {{username}}
-        <button class="btn btn-primary mb-2" type="button" (click)="logout()">Выйти</button>
+        <b>{{username}}</b>
+        <button class="btn btn-outline-primary m-lg-2" type="button" (click)="logout()">Выйти</button>
         </div>
-        <ng-template #login> <button onclick="location.href='/signin'" class="btn btn-primary mb-2" type="button">Войти</button></ng-template>
+        <ng-template #login> <button onclick="location.href='/signin'" class="btn btn-primary" type="button">Войти</button></ng-template>
       </div>
 
 
@@ -43,9 +43,11 @@
   <div class="row">
   <router-outlet></router-outlet>
   </div>
-  <footer class="container">
+  <div class="container">
+  <footer>
     <p>При наличии ошибок, пожалуйста, сообщите, о них на почту: reviews.there@gmail.com</p>
     <p>2023, Отзывы.тут</p>
   </footer>
+    </div>
 </div>
 

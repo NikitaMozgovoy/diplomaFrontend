@@ -1,5 +1,6 @@
 import {KinopoiskReviewDTO} from "./KinopoiskReviewDTO";
-import {LocalReviewsDTO} from "./LocalReviewsDTO";
+import {LocalReviewDTO} from "./LocalReviewDTO";
+import {TmdbReviewDTO} from "./TmdbReviewDto";
 
 export class FilmDTO {
   constructor(
@@ -14,6 +15,7 @@ export class FilmDTO {
     public director: Array<string>,
     public movieLength: number,
     public kinopoiskReviews: Array<KinopoiskReviewDTO>,
-    public localReviews: Array<LocalReviewsDTO>
+    public tmdbReviews: Array<TmdbReviewDTO> | null,
+    public localReviews: Array<LocalReviewDTO>
   ) {}
 }

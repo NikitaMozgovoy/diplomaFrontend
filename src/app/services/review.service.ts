@@ -2,9 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { Film } from '../models/film';
 import { Review } from '../models/review';
-import { LocalReviewsDTO } from '../dto/LocalReviewsDTO';
+import { LocalReviewDTO } from '../dto/LocalReviewDTO';
 
 @Injectable({
   providedIn: 'root'
@@ -13,24 +12,26 @@ export class ReviewService {
   private apiServerUrl = environment.apiBaseUrl;
   constructor(private http: HttpClient) { }
 
-    public getAllReviews():Observable<LocalReviewsDTO[]>{
-        return this.http.get<LocalReviewsDTO[]>(`${this.apiServerUrl}/reviews`);
+    public refreshReviews(page: number):Observable<LocalReviewDTO[]>{
+        return this.http.get<LocalReviewDTO[]>(`${this.apiServerUrl}/reviews`);
     }
 
-    public addReview(review : Review, filmId: number):Observable<Review>{
-        return this.http.post<Review>(`${this.apiServerUrl}/reviews/add/${filmId}`, review);
+    public addReview(review : LocalReviewDTO, filmId: number):Observable<LocalReviewDTO>{
+        return this.http.post<LocalReviewDTO>(`${this.apiServerUrl}/reviews/${filmId}/add`, review);
     }
 
-    public updateReview(review: Review, reviewId: number):Observable<Review>{
-        return this.http.put<Review>(`${this.apiServerUrl}/reviews/update/${reviewId}`, review);
+    public updateReview(review: LocalReviewDTO, reviewId: number):Observable<LocalReviewDTO>{
+        return this.http.put<LocalReviewDTO>(`${this.apiServerUrl}/reviews/${reviewId}/update`, review);
     }
 
     public deleteReview(reviewId: number):Observable<void>{
-        return this.http.delete<void>(`${this.apiServerUrl}/reviews/delete/${reviewId}`);
+        return this.http.delete<void>(`${this.apiServerUrl}/reviews/${reviewId}/delete`);
     }
 
-    public getFilmReviews(filmId: number):Observable<LocalReviewsDTO[]>{
-        return this.http.get<LocalReviewsDTO[]>(`${this.apiServerUrl}/reviews/${filmId}`);
-    }
+
+
+    // public getFilmReviews(filmId: number):Observable<LocalReviewDTO[]>{
+    //     return this.http.get<LocalReviewDTO[]>(`${this.apiServerUrl}/reviews/${filmId}`);
+    // }
 
 }

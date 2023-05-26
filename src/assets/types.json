@@ -1,0 +1,31 @@
+{
+  "paramName": "type",
+  "animated_series": {
+    "value": false,
+    "name": "animated-series"
+  },
+  "anime":{
+    "value": false,
+    "name": "anime"
+  },
+  "cartoon":{
+    "value": false,
+    "name": "cartoon"
+  },
+  "mini_series":{
+    "value": false,
+    "name": "mini-series"
+  },
+  "movie":{
+    "value": false,
+    "name": "movie"
+  },
+  "tv-series":{
+    "value": false,
+    "name": "tv-series"
+  },
+  "tv_show":{
+    "value": false,
+    "name": "tv-show"
+  }
+}

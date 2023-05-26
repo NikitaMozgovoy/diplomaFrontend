@@ -1,32 +1,33 @@
-<article>
-<ng-container *ngIf="film"  id="film-info">
+<article class="col-8">
+  <ng-container *ngIf="film"  id="film-info">
       <div class="container">
-      <div class="row">
-        <div class="col-md-4">
-          <img alt="Постер" ngSrc="{{film.posterUrl}}" [width]="300" [height]="450">
-        </div>
-        <div class="col-md-6">
-          <h1>{{film.name}} ({{film.year}})</h1>
-
-          Жанры:
-          <div class="row d-inline-block" *ngFor="let genre of film.genresList">
-            <h6 class="m-0">{{genre}}&nbsp;&nbsp;</h6>
+        <div class="row">
+          <div class="col-4">
+            <img class="col-12" alt="Постер" src="{{film.posterUrl}}" >
           </div>
+          <div class="col-8">
+            <h1>{{film.name}} ({{film.year}})</h1>
 
-          <p class="m-0">Режиссеры: {{film.director}} </p>
-
-          Страны:
-          <div class="row d-inline-block m-0" *ngFor="let country of film.countriesList">
-            <h6>{{country}} &nbsp;&nbsp;</h6>
+            Жанры:
+            <div class="row d-inline-block" *ngFor="let genre of film.genresList">
+              <h6 class="m-0">{{genre}}&nbsp;&nbsp;</h6>
+            </div>
+            <br/>
+            Режиссеры:
+            <div class="row d-inline-block" *ngFor="let director of film.director">
+              <h6 class="m-0">{{director}}</h6>
+            </div>
+            <br/>
+            Страны:
+            <div class="row d-inline-block m-0" *ngFor="let country of film.countriesList">
+              <h6>{{country}} &nbsp;&nbsp;</h6>
+            </div>
           </div>
         </div>
       </div>
-      </div>
 
     </ng-container>
-    <ng-container *ngFor="let review of film.kinopoiskReviews">
-      {{review.author}}
-      {{review.review}}
-    </ng-container>
-    <!--        <app-review [film]="film"></app-review>-->
+  <app-review [film]="film"></app-review>
+
+
 </article>

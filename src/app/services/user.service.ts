@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { CustomUser } from "../models/customUser";
+import { UserModel } from "../models/UserModel";
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment'
 
@@ -12,23 +12,23 @@ export class UserService{
 
     constructor(private http: HttpClient){}
 
-    public getUsers():Observable<CustomUser[]>{
-        return this.http.get<CustomUser[]>(`${this.apiServerUrl}/users/all`);
+    public getUsers():Observable<UserModel[]>{
+        return this.http.get<UserModel[]>(`${this.apiServerUrl}/users/all`);
     }
 
-    public createUser(user : CustomUser):Observable<CustomUser>{
-        return this.http.post<CustomUser>(`${this.apiServerUrl}/users/add`, user);
+    public createUser(user : UserModel):Observable<UserModel>{
+        return this.http.post<UserModel>(`${this.apiServerUrl}/users/add`, user);
     }
 
-    public updateUser(user: CustomUser, userId: number):Observable<CustomUser>{
-        return this.http.put<CustomUser>(`${this.apiServerUrl}/users/update/${userId}`, user);
+    public updateUser(user: UserModel, userId: number):Observable<UserModel>{
+        return this.http.put<UserModel>(`${this.apiServerUrl}/users/update/${userId}`, user);
     }
-    
+
     public deleteUser(userId: number):Observable<void>{
         return this.http.delete<void>(`${this.apiServerUrl}/users/delete/${userId}`);
     }
 
-    public getUserById(userId:number):Observable<CustomUser>{
-        return this.http.get<CustomUser>(`${this.apiServerUrl}/users/find/${userId}`);
+    public getUserById(userId:number):Observable<UserModel>{
+        return this.http.get<UserModel>(`${this.apiServerUrl}/users/find/${userId}`);
     }
 }

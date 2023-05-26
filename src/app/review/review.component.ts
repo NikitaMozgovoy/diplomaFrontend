@@ -2,13 +2,13 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { environment } from 'src/environments/environment';
-import { Film } from '../models/film';
 import { Review } from '../models/review';
 import { ReviewService } from '../services/review.service';
-import { CustomUser } from '../models/customUser';
+import { UserModel } from '../models/UserModel';
 import { UserService } from '../services/user.service';
-import { LocalReviewsDTO } from '../dto/LocalReviewsDTO';
+import { LocalReviewDTO } from '../dto/LocalReviewDTO';
 import {FilmDTO} from "../dto/FilmDTO";
+import {FilmService} from "../services/film.service";
 
 @Component({
   selector: 'app-review',
@@ -17,24 +17,23 @@ import {FilmDTO} from "../dto/FilmDTO";
 })
 export class ReviewComponent implements OnInit{
   @Input() film!:FilmDTO;
-  public filmUrl!: string;
-  public localReviews!: LocalReviewsDTO[];
   public apiServerUrl! : string;
   userId!: number;
 
-  constructor(private reviewService: ReviewService){};
+  constructor(private reviewService: ReviewService, private filmService: FilmService){};
 
   ngOnInit(): void {
     this.apiServerUrl = environment.apiBaseUrl;
-    this.getLocalReviews();
     this.userId=Number(sessionStorage.getItem("id"));
   }
 
-  public getLocalReviews(): void{
-    this.reviewService.getFilmReviews(this.film.id).subscribe(
+  public updateReviews(): void{
+    this.filmService.getFilmById(this.film.id).subscribe(
       {
         error: (err: HttpErrorResponse) => {alert(err.message)},
-        next: (response:LocalReviewsDTO[]) => {this.localReviews=response}
+        next: (response: FilmDTO) => {
+          this.film=response;
+        }
       }
     )
   }
@@ -51,27 +50,30 @@ export class ReviewComponent implements OnInit{
       // button.click();
   }
 
-  // public onAddReview(createForm: NgForm, filmId: number) :void {
-  //     this.reviewService.addReview(createForm.value, filmId).subscribe(
-  //       (response: Review) => {
-  //         console.log(response);
-  //         this.getReviews();
-  //       },
-  //       (error: HttpErrorResponse) =>{
-  //         alert(error.message);
-  //       }
-  //     );
-  //   }
-  //
-  // public onEditReview(editForm: NgForm, reviewId: number){
-  //   this.reviewService.updateReview(editForm.value, reviewId).subscribe(
-  //         (response: Review) => {
-  //           console.log(response);
-  //           this.getReviews();
-  //         },
-  //         (error: HttpErrorResponse) =>{
-  //           alert(error.message);
-  //         }
-  //       );
-  // }
+  public onAddReview(createForm: NgForm, filmId: number) :void {
+    this.reviewService.addReview(createForm.value, filmId).subscribe(
+      {
+        error: (err: HttpErrorResponse) => {alert(err.message)},
+        next: (response: LocalReviewDTO) => {
+          this.updateReviews();
+        }
+      }
+    )
+  }
+
+  public onEditReview(editForm: NgForm, review: LocalReviewDTO){
+    review.text=editForm.value.text;
+    this.reviewService.updateReview(review, review.id).subscribe(
+      {
+        error: (err: HttpErrorResponse) => {alert(err.message)},
+        next: (response: LocalReviewDTO) => {
+          this.updateReviews();
+        }
+      }
+    )
+  }
+
+
+  protected readonly sessionStorage = sessionStorage;
+  protected readonly Array = Array;
 }

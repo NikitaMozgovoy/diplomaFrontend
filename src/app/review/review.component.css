@@ -1,0 +1,6 @@
+#reviewTextCollapse:before{
+  overflow: visible;
+}
+#reviewTextCollapse:after{
+  overflow: hidden;
+}
