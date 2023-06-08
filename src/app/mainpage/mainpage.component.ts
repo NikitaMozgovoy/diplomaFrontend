@@ -1,17 +1,11 @@
-import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
-import { environment } from 'src/environments/environment';
-import { UserModel } from '../models/UserModel';
-import { FilmService } from '../services/film.service';
-import { UserService } from '../services/user.service';
-import {FilmDTO} from "../dto/FilmDTO";
+import {HttpErrorResponse} from '@angular/common/http';
+import {Component, OnInit} from '@angular/core';
+import {environment} from 'src/environments/environment';
+import {FilmService} from '../services/film.service';
 import {FilmsListDTO} from "../dto/FilmsListDTO";
 import genres from "src/assets/genres.json";
 import years from "src/assets/years.json";
 import types from "src/assets/types.json";
-
-import {KeyValue} from "@angular/common";
 
 @Component({
   selector: 'app-mainpage',
@@ -22,11 +16,12 @@ export class MainpageComponent implements OnInit {
 
   public films!: FilmsListDTO[];
   public apiServerUrl!: string;
-  genresFilter = genres;
-  yearsFilter = years;
-  typesFilter = types;
-  public page=1;
+  genresFilter:any;
+  yearsFilter:any;
+  typesFilter:any;
   public limit = 10;
+  public page=1;
+  public pagesQuantity! : number;
 
 
   constructor(private filmService: FilmService) {
@@ -34,6 +29,9 @@ export class MainpageComponent implements OnInit {
 
   ngOnInit(): void {
     this.apiServerUrl = environment.apiBaseUrl;
+    this.genresFilter = genres;
+    this.yearsFilter = years;
+    this.typesFilter = types;
     this.getFilms(this.limit, this.page);
   }
 
@@ -49,11 +47,24 @@ export class MainpageComponent implements OnInit {
         }
       }
     )
+    this.getPagesQuantity("null");
+  }
+
+  public getPagesQuantity(query:string): void{
+    this.filmService.getFilmsPagesQuantity(query, this.limit).subscribe(
+      {
+        error: (err: HttpErrorResponse) => {
+          alert(err.message)
+        },
+        next: (response: number) => {
+          this.pagesQuantity = response;
+        }
+      }
+    )
   }
 
   applyFilters() {
     let filterString = this.composeQueryString();
-    console.log(filterString);
     this.filmService.getSearchResults(filterString, this.limit, 1).subscribe(
       {
         error: (err: HttpErrorResponse) => {
@@ -61,10 +72,10 @@ export class MainpageComponent implements OnInit {
         },
         next: (response: FilmsListDTO[]) => {
           this.films = response;
-          console.log(response)
         }
       }
     )
+    this.getPagesQuantity(filterString);
   }
 
 
@@ -82,4 +93,14 @@ export class MainpageComponent implements OnInit {
     }
     return res;
   }
+
+  resetFilters(){
+    this.genresFilter = genres;
+    this.yearsFilter = years;
+    this.typesFilter = types;
+    this.getFilms(this.limit, this.page);
+    location.reload();
+  }
+
 }
+

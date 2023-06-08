@@ -1,14 +1,7 @@
-import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
-import { environment } from 'src/environments/environment';
-import { UserModel } from './models/UserModel';
-import { UserService } from './services/user.service';
+import {Component, OnInit} from '@angular/core';
 import {FilmService} from "./services/film.service";
-import {FilmDTO} from "./dto/FilmDTO";
-import {FilmsListDTO} from "./dto/FilmsListDTO";
+import {Router} from "@angular/router";
 import {SearchService} from "./services/search.service";
-import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-root',
@@ -18,9 +11,9 @@ import {ActivatedRoute, Router} from "@angular/router";
 })
 export class AppComponent implements OnInit{
   username!: string | null;
-  searchQuery: string="";
+  searchQuery!: string;
 
-  constructor(private filmService: FilmService, protected searchService: SearchService, private router: Router){};
+  constructor(private filmService: FilmService, private router: Router){};
 
     ngOnInit(): void {
       this.username=sessionStorage.getItem("username");
@@ -32,12 +25,14 @@ export class AppComponent implements OnInit{
     }
 
     onSearchSubmit(): void{
-      this.searchService.searchQuery = this.searchQuery;
-      console.log(this.searchService.searchQuery);
+      sessionStorage.setItem("searchQuery", this.searchQuery);
+      SearchService.searchQuery = this.searchQuery;
       this.router.navigate((["/search"]), {queryParams:
           {
             query:this.searchQuery,
             page:1
           }})
     }
+
+  protected readonly SearchService = SearchService;
 }

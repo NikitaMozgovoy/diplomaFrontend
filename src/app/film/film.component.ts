@@ -20,7 +20,6 @@ export class FilmComponent implements OnInit{
     this.getFilm();
   }
 
-  @Output()
   public getFilm(): void{
     this.filmService.getFilmById(Number(window.location.pathname.split("/")[2])).subscribe(
       {

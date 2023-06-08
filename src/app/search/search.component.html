@@ -2,8 +2,9 @@
   <div class="row">
     <nav class="col-3">
       <h2>Фильтры</h2>
-      <p>Жанры:</p>
+      <button (click)="resetFilters()">Сбросить</button>
       <div>
+        <p>Жанры:</p>
         <div>
           <input id="anime" name="anime" type="checkbox" [(ngModel)]="genresFilter.anime.value" />
           <label for="anime">Аниме</label>
@@ -129,9 +130,100 @@
           <label for="ceremony">Церемония</label>
         </div>
       </div>
-      <p>Годы:</p>
+      <br/>
+      <div>
+        <p>Годы:</p>
+        <div>
+          <input id="2026" name="2026" type="checkbox" [(ngModel)]="yearsFilter['2026'].value" />
+          <label for="2026">2026</label>
+        </div>
+        <div>
+          <input id="2025" name="2025" type="checkbox" [(ngModel)]="yearsFilter['2025'].value" />
+          <label for="2025">2025</label>
+        </div>
+        <div>
+          <input id="2024" name="2024" type="checkbox" [(ngModel)]="yearsFilter['2024'].value" />
+          <label for="2024">2024</label>
+        </div>
+        <div>
+          <input id="2023" name="2023" type="checkbox" [(ngModel)]="yearsFilter['2023'].value" />
+          <label for="2023">2023</label>
+        </div>
+        <div>
+          <input id="2022" name="2022" type="checkbox" [(ngModel)]="yearsFilter['2022'].value" />
+          <label for="2022">2022</label>
+        </div>
+        <div>
+          <input id="2021" name="2021" type="checkbox" [(ngModel)]="yearsFilter['2021'].value" />
+          <label for="2021">2021</label>
+        </div>
+        <div>
+          <input id="2020" name="2020" type="checkbox" [(ngModel)]="yearsFilter['2020'].value" />
+          <label for="2020">2020</label>
+        </div>
+        <div>
+          <input id="2019" name="2019" type="checkbox" [(ngModel)]="yearsFilter['2019'].value" />
+          <label for="2019">2019</label>
+        </div>
+        <div>
+          <input id="2018" name="2018" type="checkbox" [(ngModel)]="yearsFilter['2018'].value" />
+          <label for="2018">2018</label>
+        </div>
+        <div>
+          <input id="2020-2026" name="2020-2026" type="checkbox" [(ngModel)]="yearsFilter['2020-2026'].value" />
+          <label for="2020-2026">2020-2026</label>
+        </div>
+        <div>
+          <input id="2010-2019" name="2010-2019" type="checkbox" [(ngModel)]="yearsFilter['2010-2019'].value" />
+          <label for="2010-2019">2010-2019</label>
+        </div>
+        <div>
+          <input id="2000-2009" name="2000-2009" type="checkbox" [(ngModel)]="yearsFilter['2000-2009'].value" />
+          <label for="2000-2009">2000-2009</label>
+        </div>
+        <div>
+          <input id="1990-1999" name="1990-1999" type="checkbox" [(ngModel)]="yearsFilter['1990-1999'].value" />
+          <label for="1990-1999">1990-1999</label>
+        </div>
+        <div>
+          <input id="1980-1989" name="1980-1989" type="checkbox" [(ngModel)]="yearsFilter['1980-1989'].value" />
+          <label for="1980-1989">1980-1989</label>
+        </div>
+        <div>
+          <input id="1970-1979" name="1970-1979" type="checkbox" [(ngModel)]="yearsFilter['1970-1979'].value" />
+          <label for="1970-1979">1970-1979</label>
+        </div>
+        <div>
+          <input id="1960-1969" name="1960-1969" type="checkbox" [(ngModel)]="yearsFilter['1960-1969'].value" />
+          <label for="1960-1969">1960-1969</label>
+        </div>
+        <div>
+          <input id="1950-1959" name="1950-1959" type="checkbox" [(ngModel)]="yearsFilter['1950-1959'].value" />
+          <label for="1950-1959">1950-1959</label>
+        </div>
+        <div>
+          <input id="1940-1949" name="1940-1949" type="checkbox" [(ngModel)]="yearsFilter['1940-1949'].value" />
+          <label for="1940-1949">1940-1949</label>
+        </div>
+        <div>
+          <input id="1930-1939" name="1930-1939" type="checkbox" [(ngModel)]="yearsFilter['1930-1939'].value" />
+          <label for="1930-1939">1930-1939</label>
+        </div>
+        <div>
+          <input id="1920-1929" name="1920-1929" type="checkbox" [(ngModel)]="yearsFilter['1920-1929'].value" />
+          <label for="1920-1929">1920-1929</label>
+        </div>
+        <div>
+          <input id="1910-1919" name="1910-1919" type="checkbox" [(ngModel)]="yearsFilter['1910-1919'].value" />
+          <label for="1910-1919">1910-1919</label>
+        </div>
+        <div>
+          <input id="1900-1909" name="1900-1909" type="checkbox" [(ngModel)]="yearsFilter['1900-1909'].value" />
+          <label for="1900-1909">1900-1909</label>
+        </div>
+      </div>
 
-      <button (click)="filterSearchResults()" >Применить</button>
+      <button (click)="getSearchResults()">Применить</button>
     </nav>
     <div class="col">
       <div class="row">

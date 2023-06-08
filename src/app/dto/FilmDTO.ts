@@ -5,6 +5,7 @@ import {TmdbReviewDTO} from "./TmdbReviewDto";
 export class FilmDTO {
   constructor(
     public id: number,
+    public tmdbId: number,
     public name: string,
     public year: number,
     public countriesList: Array<string>,

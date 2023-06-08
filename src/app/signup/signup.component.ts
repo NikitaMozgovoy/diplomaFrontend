@@ -8,7 +8,7 @@ import { SignupService } from '../services/signup.service';
 })
 export class SignupComponent implements OnInit{
   form: any = {
-    username: null, 
+    username: null,
     email: null,
     password: null
   };
@@ -20,9 +20,9 @@ export class SignupComponent implements OnInit{
 
   onSubmit(): void {
     const { username, email, password } = this.form;
-    console.log(this.form);
     this.signupService.signUp(username, email, password).subscribe(
-      () => {
+      ( response: string) => {
+        console.log(response);
         location.replace('/signin');
       }
     )

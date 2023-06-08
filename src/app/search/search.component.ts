@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {AppComponent} from "../app.component";
 import {FilmService} from "../services/film.service";
 import {FilmsListDTO} from "../dto/FilmsListDTO";
@@ -23,25 +23,21 @@ export class SearchComponent implements OnInit{
   typesFilter = types;
   public page=1;
   public limit = 10;
+  public pagesQuantity!: number;
 
-  constructor(private filmService: FilmService, private route: ActivatedRoute, private searchService: SearchService){};
+  constructor(private filmService: FilmService, private route: ActivatedRoute){};
   ngOnInit() {
+    // @ts-ignore
+    SearchService.searchQuery = sessionStorage.getItem("searchQuery");
     this.getSearchResults();
+    // @ts-ignore
+    this.getPagesQuantity(sessionStorage.getItem("searchQuery"));
+    console.log(this.pagesQuantity);
   }
 
-  getSearchResults(){
-    this.route.queryParams.subscribe(params=>{
-      this.filmService.getSearchResults("&name="+this.searchService.searchQuery, this.limit, params['page']).subscribe(
-        {
-          error: (err: HttpErrorResponse) => {alert(err.message)},
-          next: (response: FilmsListDTO[]) => {this.films=response;}
-        }
-      );
-      }
-    )
-  }
-  filterSearchResults() {
+  getSearchResults() {
     let filterString = this.composeQueryString();
+    // @ts-ignore
     this.filmService.getSearchResults(filterString, this.limit, 1).subscribe(
       {
         error: (err: HttpErrorResponse) => {
@@ -49,15 +45,18 @@ export class SearchComponent implements OnInit{
         },
         next: (response: FilmsListDTO[]) => {
           this.films = response;
-          console.log(response)
         }
       }
     )
   }
 
+  onSearchSubmit(){
+    this.getSearchResults();
+  }
+
 
   composeQueryString() {
-    let res = this.searchService.searchQuery;
+    let res = sessionStorage.getItem("searchQuery");
     for (let filter of [this.typesFilter, this.genresFilter, this.yearsFilter]) {
       let map = new Map(Object.entries(filter));
       for (let key of map.keys()) {
@@ -71,4 +70,24 @@ export class SearchComponent implements OnInit{
     return res;
   }
 
+  resetFilters(){
+    this.genresFilter = genres;
+    this.yearsFilter = years;
+    this.typesFilter = types;
+    this.getSearchResults();
+    location.reload();
+  }
+
+  public getPagesQuantity(query:string): void{
+    this.filmService.getFilmsPagesQuantity(query, this.limit).subscribe(
+      {
+        error: (err: HttpErrorResponse) => {
+          alert(err.message)
+        },
+        next: (response: number) => {
+          this.pagesQuantity = response;
+        }
+      }
+    )
+  }
 }

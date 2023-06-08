@@ -8,11 +8,11 @@ import { environment } from 'src/environments/environment';
 export class SignupService {
 
   private apiServerUrl = environment.apiBaseUrl;
-  
+
   constructor(private http: HttpClient) { }
 
   signUp(username: string, email: string, password: string) {
-    return this.http.post<any>(this.apiServerUrl + '/auth/signup', {
+   return this.http.post<any>(this.apiServerUrl + '/auth/signup', {
       username,
       email,
       password
