@@ -6,6 +6,8 @@ import {FilmsListDTO} from "../dto/FilmsListDTO";
 import genres from "src/assets/genres.json";
 import years from "src/assets/years.json";
 import types from "src/assets/types.json";
+import {ActivatedRoute} from "@angular/router";
+import {SearchService} from "../services/search.service";
 
 @Component({
   selector: 'app-mainpage',
@@ -22,32 +24,45 @@ export class MainpageComponent implements OnInit {
   public limit = 10;
   public page=1;
   public pagesQuantity! : number;
+  public query!: string;
 
 
-  constructor(private filmService: FilmService) {
+  constructor(private filmService: FilmService, private route: ActivatedRoute) {
   };
 
   ngOnInit(): void {
     this.apiServerUrl = environment.apiBaseUrl;
+    this.query="";
     this.genresFilter = genres;
     this.yearsFilter = years;
     this.typesFilter = types;
-    this.getFilms(this.limit, this.page);
+    this.route.queryParams.subscribe(params=>{
+      if(params['query']!="" && params['query']){
+        console.log("зашел")
+        // @ts-ignore
+        this.query=sessionStorage.getItem("searchQuery");
+        // @ts-ignore
+        SearchService.searchQuery = sessionStorage.getItem("searchQuery");
+      }
+      this.getSearchResults(this.query, this.page);
+    })
   }
 
-  public getFilms(limit:number, pageNumber: number): void {
-    this.filmService.getFilms(limit, pageNumber).subscribe(
+
+  getSearchResults(query: string, pageNumber: number) {
+    let filterString = this.composeQueryString(query);
+    console.log(filterString);
+    // @ts-ignore
+    this.filmService.getSearchResults(filterString, this.limit, pageNumber).subscribe(
       {
         error: (err: HttpErrorResponse) => {
           alert(err.message)
         },
         next: (response: FilmsListDTO[]) => {
-          this.limit = limit;
           this.films = response;
         }
       }
     )
-    this.getPagesQuantity("null");
   }
 
   public getPagesQuantity(query:string): void{
@@ -64,7 +79,9 @@ export class MainpageComponent implements OnInit {
   }
 
   applyFilters() {
-    let filterString = this.composeQueryString();
+    let filterString = this.composeQueryString(this.query);
+    console.log(this.query);
+    console.log(filterString);
     this.filmService.getSearchResults(filterString, this.limit, 1).subscribe(
       {
         error: (err: HttpErrorResponse) => {
@@ -78,9 +95,7 @@ export class MainpageComponent implements OnInit {
     this.getPagesQuantity(filterString);
   }
 
-
-  composeQueryString() {
-    let res = "";
+  composeQueryString(res: string) {
     for (let filter of [this.typesFilter, this.genresFilter, this.yearsFilter]) {
       let map = new Map(Object.entries(filter));
       for (let key of map.keys()) {
@@ -91,6 +106,7 @@ export class MainpageComponent implements OnInit {
         }
       }
     }
+    console.log(res);
     return res;
   }
 
@@ -98,9 +114,10 @@ export class MainpageComponent implements OnInit {
     this.genresFilter = genres;
     this.yearsFilter = years;
     this.typesFilter = types;
-    this.getFilms(this.limit, this.page);
+    this.getSearchResults(this.query, 1);
     location.reload();
   }
+
 
 }
 

@@ -234,9 +234,9 @@
           <h2>Список новинок</h2>
           <p>Сортировка: год выхода     оценка     название</p>
           <p>Отображать на странице: </p>
-          <button (click)="this.limit=10; getFilms(this.limit, this.page)">10</button>
-          <button (click)="this.limit=15; getFilms(this.limit, this.page)">15</button>
-          <button (click)="this.limit=20; getFilms(this.limit, this.page)">20</button>
+          <button (click)="this.limit=10; getSearchResults(this.query, this.page)">10</button>
+          <button (click)="this.limit=15; getSearchResults(this.query, this.page)">15</button>
+          <button (click)="this.limit=20; getSearchResults(this.query, this.page)">20</button>
           <div style="background-color: transparent !important;" *ngFor="let film of films">
               <div style="display: inline-block" class="container item-card">
                 <a routerLink="/films/{{film.id}}"><img style="float: left; margin-right: 2%;" ngSrc="{{film.posterUrl}}" [width]="175" [height]="260"></a>

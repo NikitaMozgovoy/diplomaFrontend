@@ -11,7 +11,6 @@ import { ReviewComponent } from './review/review.component';
 import { SigninComponent } from './signin/signin.component';
 import { SignupComponent } from './signup/signup.component';
 import {NgOptimizedImage} from "@angular/common";
-import { SearchComponent } from './search/search.component';
 
 @NgModule({
   declarations: [
@@ -20,8 +19,7 @@ import { SearchComponent } from './search/search.component';
     MainpageComponent,
     ReviewComponent,
     SigninComponent,
-    SignupComponent,
-    SearchComponent
+    SignupComponent
   ],
     imports: [
         BrowserModule,

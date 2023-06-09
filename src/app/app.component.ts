@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FilmService} from "./services/film.service";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {SearchService} from "./services/search.service";
 
 @Component({
@@ -13,7 +13,7 @@ export class AppComponent implements OnInit{
   username!: string | null;
   searchQuery!: string;
 
-  constructor(private filmService: FilmService, private router: Router){};
+  constructor(private filmService: FilmService, private router: Router, private route: ActivatedRoute){};
 
     ngOnInit(): void {
       this.username=sessionStorage.getItem("username");
@@ -27,10 +27,9 @@ export class AppComponent implements OnInit{
     onSearchSubmit(): void{
       sessionStorage.setItem("searchQuery", this.searchQuery);
       SearchService.searchQuery = this.searchQuery;
-      this.router.navigate((["/search"]), {queryParams:
+      this.router.navigate(([]), {queryParams:
           {
-            query:this.searchQuery,
-            page:1
+            query:this.searchQuery
           }})
     }
 
