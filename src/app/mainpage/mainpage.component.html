@@ -2,228 +2,143 @@
   <div class="row">
     <nav class="col-3">
       <h2>Фильтры</h2>
-      <button (click)="resetFilters()">Сбросить</button>
-      <div>
-        <p>Жанры:</p>
+      <form #filterForm="ngForm">
+        <button (click)="filterForm.resetForm(); resetFilters()">Сбросить</button>
         <div>
-          <input id="anime" name="anime" type="checkbox" [(ngModel)]="genresFilter.anime.value" />
-          <label for="anime">Аниме</label>
+          <p>Жанры:</p>
+          <div>
+            <input id="anime" name="anime" type="checkbox" [(ngModel)]="genresFilter.anime.value" />
+            <label for="anime">Аниме</label>
+          </div>
+          <div>
+            <input id="biography" name="biography" type="checkbox" [(ngModel)]="genresFilter.biography.value" />
+            <label for="biography">Биография</label>
+          </div>
+          <div>
+            <input id="action" name="action" type="checkbox" [(ngModel)]="genresFilter.action.value" />
+            <label for="action">Боевик</label>
+          </div>
+          <div>
+            <input id="western" name="western" type="checkbox" [(ngModel)]="genresFilter.western.value" />
+            <label for="western">Вестерн</label>
+          </div>
+          <div>
+            <input id="war" name="war" type="checkbox" [(ngModel)]="genresFilter.war.value" />
+            <label for="war">Военный</label>
+          </div>
+          <div>
+            <input id="detective" name="detective" type="checkbox" [(ngModel)]="genresFilter.detective.value" />
+            <label for="detective">Детектив</label>
+          </div>
+          <div>
+            <input id="children" name="children" type="checkbox" [(ngModel)]="genresFilter.children.value" />
+            <label for="western">Детский</label>
+          </div>
+          <div>
+            <input id="adult" name="adult" type="checkbox" [(ngModel)]="genresFilter.adult.value" />
+            <label for="adult">Для взрослых</label>
+          </div>
+          <div>
+            <input id="documentary" name="documentary" type="checkbox" [(ngModel)]="genresFilter.documentary.value" />
+            <label for="documentary">Документальный</label>
+          </div>
+          <div>
+            <input id="drama" name="drama" type="checkbox" [(ngModel)]="genresFilter.drama.value" />
+            <label for="drama">Драма</label>
+          </div>
+          <div>
+            <input id="game" name="game" type="checkbox" [(ngModel)]="genresFilter.game.value" />
+            <label for="game">Игра</label>
+          </div>
+          <div>
+            <input id="history" name="history" type="checkbox" [(ngModel)]="genresFilter.history.value" />
+            <label for="history">История</label>
+          </div>
+          <div>
+            <input id="comedy" name="comedy" type="checkbox" [(ngModel)]="genresFilter.comedy.value"  />
+            <label for="comedy">Комедия</label>
+          </div>
+          <div>
+            <input id="concert" name="concert" type="checkbox" [(ngModel)]="genresFilter.concert.value" />
+            <label for="concert">Концерт</label>
+          </div>
+          <div>
+            <input id="short_film" name="short_film" type="checkbox" [(ngModel)]="genresFilter.short_film.value"  />
+            <label for="short_film">Короткометражка</label>
+          </div>
+          <div>
+            <input id="criminal" name="criminal" type="checkbox" [(ngModel)]="genresFilter.criminal.value"  />
+            <label for="criminal">Криминал</label>
+          </div>
+          <div>
+            <input id="melodrama" name="melodrama" type="checkbox" [(ngModel)]="genresFilter.melodrama.value" />
+            <label for="melodrama">Мелодрама</label>
+          </div>
+          <div>
+            <input id="music" name="music" type="checkbox" [(ngModel)]="genresFilter.music.value" />
+            <label for="music">Музыка</label>
+          </div>
+          <div>
+            <input id="musical" name="musical" type="checkbox" [(ngModel)]="genresFilter.musical.value" />
+            <label for="musical">Мюзикл</label>
+          </div>
+          <div>
+            <input id="news" name="news" type="checkbox" [(ngModel)]="genresFilter.news.value" />
+            <label for="news">Новости</label>
+          </div>
+          <div>
+            <input id="adventures" name="adventures" type="checkbox" [(ngModel)]="genresFilter.adventures.value" />
+            <label for="adventures">Приключения</label>
+          </div>
+          <div>
+            <input id="real_tv" name="real_tv" type="checkbox" [(ngModel)]="genresFilter.real_tv.value" />
+            <label for="real_tv">Реальное ТВ</label>
+          </div>
+          <div>
+            <input id="family" name="family" type="checkbox" [(ngModel)]="genresFilter.family.value" />
+            <label for="family">Семейный</label>
+          </div>
+          <div>
+            <input id="sport" name="sport" type="checkbox" [(ngModel)]="genresFilter.sport.value" />
+            <label for="sport">Спорт</label>
+          </div>
+          <div>
+            <input id="talk_show" name="talk_show" type="checkbox" [(ngModel)]="genresFilter.talk_show.value" />
+            <label for="talk_show">Ток-шоу</label>
+          </div>
+          <div>
+            <input id="thriller" name="thriller" type="checkbox" [(ngModel)]="genresFilter.thriller.value" />
+            <label for="thriller">Триллер</label>
+          </div>
+          <div>
+            <input id="horror" name="horror" type="checkbox" [(ngModel)]="genresFilter.horror.value" />
+            <label for="horror">Ужасы</label>
+          </div>
+          <div>
+            <input id="fiction" name="fiction" type="checkbox" [(ngModel)]="genresFilter.fiction.value" />
+            <label for="fiction">Фантастика</label>
+          </div>
+          <div>
+            <input id="noir" name="noir" type="checkbox" [(ngModel)]="genresFilter.noir.value" />
+            <label for="noir">Нуар</label>
+          </div>
+          <div>
+            <input id="fantasy" name="fantasy" type="checkbox" [(ngModel)]="genresFilter.fantasy.value" />
+            <label for="fantasy">Фэнтези</label>
+          </div>
+          <div>
+            <input id="ceremony" name="ceremony" type="checkbox" [(ngModel)]="genresFilter.ceremony.value" />
+            <label for="ceremony">Церемония</label>
+          </div>
         </div>
+        <br/>
         <div>
-          <input id="biography" name="biography" type="checkbox" [(ngModel)]="genresFilter.biography.value" />
-          <label for="biography">Биография</label>
+          <p>Годы:</p>
+          <label>Введите диапазон годов или только начальный, если нужен конкретный</label>
+          <p><input class="yearField" type="text" maxlength="4" name="yearStart" [(ngModel)]="yearStart"> - <input class="yearField" name="yearEnd" type="text" maxlength="4" [(ngModel)]="yearEnd"></p>
         </div>
-        <div>
-          <input id="action" name="action" type="checkbox" [(ngModel)]="genresFilter.action.value" />
-          <label for="action">Боевик</label>
-        </div>
-        <div>
-          <input id="western" name="western" type="checkbox" [(ngModel)]="genresFilter.western.value" />
-          <label for="western">Вестерн</label>
-        </div>
-        <div>
-          <input id="war" name="war" type="checkbox" [(ngModel)]="genresFilter.war.value" />
-          <label for="war">Военный</label>
-        </div>
-        <div>
-          <input id="detective" name="detective" type="checkbox" [(ngModel)]="genresFilter.detective.value" />
-          <label for="detective">Детектив</label>
-        </div>
-        <div>
-          <input id="children" name="children" type="checkbox" [(ngModel)]="genresFilter.children.value" />
-          <label for="western">Детский</label>
-        </div>
-        <div>
-          <input id="adult" name="adult" type="checkbox" [(ngModel)]="genresFilter.adult.value" />
-          <label for="adult">Для взрослых</label>
-        </div>
-        <div>
-          <input id="documentary" name="documentary" type="checkbox" [(ngModel)]="genresFilter.documentary.value" />
-          <label for="documentary">Документальный</label>
-        </div>
-        <div>
-          <input id="drama" name="drama" type="checkbox" [(ngModel)]="genresFilter.drama.value" />
-          <label for="drama">Драма</label>
-        </div>
-        <div>
-          <input id="game" name="game" type="checkbox" [(ngModel)]="genresFilter.game.value" />
-          <label for="game">Игра</label>
-        </div>
-        <div>
-          <input id="history" name="history" type="checkbox" [(ngModel)]="genresFilter.history.value" />
-          <label for="history">История</label>
-        </div>
-        <div>
-          <input id="comedy" name="comedy" type="checkbox" [(ngModel)]="genresFilter.comedy.value"  />
-          <label for="comedy">Комедия</label>
-        </div>
-        <div>
-          <input id="concert" name="concert" type="checkbox" [(ngModel)]="genresFilter.concert.value" />
-          <label for="concert">Концерт</label>
-        </div>
-        <div>
-          <input id="short_film" name="short_film" type="checkbox" [(ngModel)]="genresFilter.short_film.value"  />
-          <label for="short_film">Короткометражка</label>
-        </div>
-        <div>
-          <input id="criminal" name="criminal" type="checkbox" [(ngModel)]="genresFilter.criminal.value"  />
-          <label for="criminal">Криминал</label>
-        </div>
-        <div>
-          <input id="melodrama" name="melodrama" type="checkbox" [(ngModel)]="genresFilter.melodrama.value" />
-          <label for="melodrama">Мелодрама</label>
-        </div>
-        <div>
-          <input id="music" name="music" type="checkbox" [(ngModel)]="genresFilter.music.value" />
-          <label for="music">Музыка</label>
-        </div>
-        <div>
-          <input id="musical" name="musical" type="checkbox" [(ngModel)]="genresFilter.musical.value" />
-          <label for="musical">Мюзикл</label>
-        </div>
-        <div>
-          <input id="news" name="news" type="checkbox" [(ngModel)]="genresFilter.music.value" />
-          <label for="news">Новости</label>
-        </div>
-        <div>
-          <input id="adventures" name="adventures" type="checkbox" [(ngModel)]="genresFilter.adventures.value" />
-          <label for="adventures">Приключения</label>
-        </div>
-        <div>
-          <input id="real_tv" name="real_tv" type="checkbox" [(ngModel)]="genresFilter.real_tv.value" />
-          <label for="real_tv">Реальное ТВ</label>
-        </div>
-        <div>
-          <input id="family" name="family" type="checkbox" [(ngModel)]="genresFilter.family.value" />
-          <label for="family">Семейный</label>
-        </div>
-        <div>
-          <input id="sport" name="sport" type="checkbox" [(ngModel)]="genresFilter.sport.value" />
-          <label for="sport">Спорт</label>
-        </div>
-        <div>
-          <input id="talk_show" name="talk_show" type="checkbox" [(ngModel)]="genresFilter.talk_show.value" />
-          <label for="talk_show">Ток-шоу</label>
-        </div>
-        <div>
-          <input id="thriller" name="thriller" type="checkbox" [(ngModel)]="genresFilter.thriller.value" />
-          <label for="thriller">Триллер</label>
-        </div>
-        <div>
-          <input id="horror" name="horror" type="checkbox" [(ngModel)]="genresFilter.horror.value" />
-          <label for="horror">Ужасы</label>
-        </div>
-        <div>
-          <input id="fiction" name="fiction" type="checkbox" [(ngModel)]="genresFilter.fiction.value" />
-          <label for="fiction">Фантастика</label>
-        </div>
-        <div>
-          <input id="noir" name="noir" type="checkbox" [(ngModel)]="genresFilter.noir.value" />
-          <label for="noir">Нуар</label>
-        </div>
-        <div>
-          <input id="fantasy" name="fantasy" type="checkbox" [(ngModel)]="genresFilter.fantasy.value" />
-          <label for="fantasy">Фэнтези</label>
-        </div>
-        <div>
-          <input id="ceremony" name="ceremony" type="checkbox" [(ngModel)]="genresFilter.ceremony.value" />
-          <label for="ceremony">Церемония</label>
-        </div>
-      </div>
-      <br/>
-      <div>
-        <p>Годы:</p>
-        <div>
-          <input id="2026" name="2026" type="checkbox" [(ngModel)]="yearsFilter['2026'].value" />
-          <label for="2026">2026</label>
-        </div>
-        <div>
-          <input id="2025" name="2025" type="checkbox" [(ngModel)]="yearsFilter['2025'].value" />
-          <label for="2025">2025</label>
-        </div>
-        <div>
-          <input id="2024" name="2024" type="checkbox" [(ngModel)]="yearsFilter['2024'].value" />
-          <label for="2024">2024</label>
-        </div>
-        <div>
-          <input id="2023" name="2023" type="checkbox" [(ngModel)]="yearsFilter['2023'].value" />
-          <label for="2023">2023</label>
-        </div>
-        <div>
-          <input id="2022" name="2022" type="checkbox" [(ngModel)]="yearsFilter['2022'].value" />
-          <label for="2022">2022</label>
-        </div>
-        <div>
-          <input id="2021" name="2021" type="checkbox" [(ngModel)]="yearsFilter['2021'].value" />
-          <label for="2021">2021</label>
-        </div>
-        <div>
-          <input id="2020" name="2020" type="checkbox" [(ngModel)]="yearsFilter['2020'].value" />
-          <label for="2020">2020</label>
-        </div>
-        <div>
-          <input id="2019" name="2019" type="checkbox" [(ngModel)]="yearsFilter['2019'].value" />
-          <label for="2019">2019</label>
-        </div>
-        <div>
-          <input id="2018" name="2018" type="checkbox" [(ngModel)]="yearsFilter['2018'].value" />
-          <label for="2018">2018</label>
-        </div>
-        <div>
-          <input id="2020-2026" name="2020-2026" type="checkbox" [(ngModel)]="yearsFilter['2020-2026'].value" />
-          <label for="2020-2026">2020-2026</label>
-        </div>
-        <div>
-          <input id="2010-2019" name="2010-2019" type="checkbox" [(ngModel)]="yearsFilter['2010-2019'].value" />
-          <label for="2010-2019">2010-2019</label>
-        </div>
-        <div>
-          <input id="2000-2009" name="2000-2009" type="checkbox" [(ngModel)]="yearsFilter['2000-2009'].value" />
-          <label for="2000-2009">2000-2009</label>
-        </div>
-        <div>
-          <input id="1990-1999" name="1990-1999" type="checkbox" [(ngModel)]="yearsFilter['1990-1999'].value" />
-          <label for="1990-1999">1990-1999</label>
-        </div>
-        <div>
-          <input id="1980-1989" name="1980-1989" type="checkbox" [(ngModel)]="yearsFilter['1980-1989'].value" />
-          <label for="1980-1989">1980-1989</label>
-        </div>
-        <div>
-          <input id="1970-1979" name="1970-1979" type="checkbox" [(ngModel)]="yearsFilter['1970-1979'].value" />
-          <label for="1970-1979">1970-1979</label>
-        </div>
-        <div>
-          <input id="1960-1969" name="1960-1969" type="checkbox" [(ngModel)]="yearsFilter['1960-1969'].value" />
-          <label for="1960-1969">1960-1969</label>
-        </div>
-        <div>
-          <input id="1950-1959" name="1950-1959" type="checkbox" [(ngModel)]="yearsFilter['1950-1959'].value" />
-          <label for="1950-1959">1950-1959</label>
-        </div>
-        <div>
-          <input id="1940-1949" name="1940-1949" type="checkbox" [(ngModel)]="yearsFilter['1940-1949'].value" />
-          <label for="1940-1949">1940-1949</label>
-        </div>
-        <div>
-          <input id="1930-1939" name="1930-1939" type="checkbox" [(ngModel)]="yearsFilter['1930-1939'].value" />
-          <label for="1930-1939">1930-1939</label>
-        </div>
-        <div>
-          <input id="1920-1929" name="1920-1929" type="checkbox" [(ngModel)]="yearsFilter['1920-1929'].value" />
-          <label for="1920-1929">1920-1929</label>
-        </div>
-        <div>
-          <input id="1910-1919" name="1910-1919" type="checkbox" [(ngModel)]="yearsFilter['1910-1919'].value" />
-          <label for="1910-1919">1910-1919</label>
-        </div>
-        <div>
-          <input id="1900-1909" name="1900-1909" type="checkbox" [(ngModel)]="yearsFilter['1900-1909'].value" />
-          <label for="1900-1909">1900-1909</label>
-        </div>
-      </div>
-
-      <button (click)="applyFilters()" >Применить</button>
+        <button (click)="applyFilters()" >Применить</button>
+      </form>
     </nav>
     <div class="col">
       <aside class="col-12"><h3>Отзывы о фильмах и кино</h3>
@@ -244,6 +159,28 @@
                   <h3 style="margin:0"><a routerLink="/films/{{film.id}}">{{film?.name}} ({{film.year}})</a></h3>
                 </div>
               </div>
+          </div>
+          <div>
+            <div style="text-align: center" *ngIf="this.page==1 || this.page==2; else pagesBlock">
+
+              <a class="disabled" style="margin:2%; cursor:pointer" (click)="this.page=1; getSearchResults(this.query, this.page)">&laquo;</a>
+              <a href="#" style="margin:2%;" (click)="this.page=1; getSearchResults(this.query, page)" [ngClass]="{'active-page': page==1}" class="active-page">1</a>&ensp;
+              <span *ngIf="pagesQuantity>1; then secondPage"></span>
+              <span *ngIf="pagesQuantity>2; then thirdPage"></span>
+              <a href="#" style="margin:2%;" (click)="this.page=this.pagesQuantity; getSearchResults(this.query, this.page)">&raquo;</a>
+            </div>
+
+            <ng-template #secondPage><a href="#" style="margin:2%; cursor:pointer" (click)="this.page=2; getSearchResults(this.query, page)">2</a>&ensp;</ng-template>
+            <ng-template #thirdPage><a href="#" style="margin:2%; cursor:pointer" (click)="this.page=3; getSearchResults(this.query, page)">3</a>&ensp;</ng-template>
+            <ng-template #pagesBlock>
+              <div style="text-align: center">
+                <a style="margin:2%; cursor:pointer" (click)="this.page=1; getSearchResults(this.query, this.page)">&laquo;</a>
+                <a style="margin:2%; cursor:pointer" (click)="this.page=this.page-1; getSearchResults(this.query, this.page)">{{page-1}}</a>
+                <a style="margin:2%; cursor:pointer" (click)="getSearchResults(this.query, page+1)" class="active-page">{{page}}</a>
+                <a *ngIf="page+1<=pagesQuantity" style="margin:2%; cursor:pointer" (click)="this.page=this.page+1; getSearchResults(this.query, this.page)">{{page+1}}</a>
+                <a style="margin:2%; cursor:pointer" (click)="this.page=this.pagesQuantity; getSearchResults(this.query, this.page)">&raquo;</a>
+              </div>
+            </ng-template>
           </div>
 <!--          <div *ngIf="getFilms(page+1)!=null">-->
         </article>

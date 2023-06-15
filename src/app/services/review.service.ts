@@ -41,4 +41,12 @@ export class ReviewService {
     queryParams = queryParams.append("service", service);
     return this.http.get<number>(`${this.apiServerUrl}/reviews/${filmId}/pages`, {params:queryParams})
   }
+
+
+  public getUsersFilmReview(filmId: number, userId: number):Observable<LocalReviewDTO>{
+    console.log(filmId, userId);
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append("userId", userId)
+    return this.http.get<LocalReviewDTO>(`${this.apiServerUrl}/reviews/${filmId}/current-user-review`, {params:queryParams});
+  }
 }

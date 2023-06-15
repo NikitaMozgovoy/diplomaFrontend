@@ -11,6 +11,7 @@ import { ReviewComponent } from './review/review.component';
 import { SigninComponent } from './signin/signin.component';
 import { SignupComponent } from './signup/signup.component';
 import {NgOptimizedImage} from "@angular/common";
+import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import {NgOptimizedImage} from "@angular/common";
     MainpageComponent,
     ReviewComponent,
     SigninComponent,
-    SignupComponent
+    SignupComponent,
+    ProfileComponent
   ],
     imports: [
         BrowserModule,

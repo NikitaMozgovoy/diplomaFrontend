@@ -6,11 +6,13 @@ import { MainpageComponent } from './mainpage/mainpage.component';
 import { SignupComponent } from './signup/signup.component';
 import { SigninComponent } from './signin/signin.component';
 import { FormsModule } from '@angular/forms';
+import {ProfileComponent} from "./profile/profile.component";
 const routes: Routes = [
   {path:"", component: MainpageComponent},
   {path:"films/:filmId", component:FilmComponent},
   {path:"signup", component:SignupComponent},
   {path:"signin", component:SigninComponent},
+  {path:"profile", component:ProfileComponent}
 ];
 
 

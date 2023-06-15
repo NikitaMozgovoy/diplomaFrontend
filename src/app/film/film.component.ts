@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit, Output } from '@angular/core';
+import {AfterContentInit, AfterViewInit, Component, OnInit, Output} from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { FilmService } from '../services/film.service';
 import {FilmDTO} from "../dto/FilmDTO";

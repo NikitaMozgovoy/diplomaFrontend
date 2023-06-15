@@ -11,7 +11,7 @@
 <!--            <a class="nav-link" href="#">Pricing</a>-->
 <!--          </li>-->
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Типы
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -31,8 +31,8 @@
           </form>
 
         <div *ngIf="username; else login">
-        <b>{{username}}</b>
-        <button class="btn btn-outline-primary m-lg-2" type="button" (click)="logout()">Выйти</button>
+          <a style="text-decoration: none; color:black" href="/profile"><b>{{username}}</b></a>
+          <button class="btn btn-outline-primary m-lg-2" type="button" (click)="logout()">Выйти</button>
         </div>
         <ng-template #login> <button onclick="location.href='/signin'" class="btn btn-primary" type="button">Войти</button></ng-template>
       </div>
@@ -40,14 +40,14 @@
 
     </nav>
   </header>
-  <div class="row">
   <router-outlet></router-outlet>
-  </div>
-  <div class="container">
-  <footer>
-    <p>При наличии ошибок, пожалуйста, сообщите, о них на почту: reviews.there@gmail.com</p>
-    <p>2023, Отзывы.тут</p>
-  </footer>
+  <div class="row">
+    <div class="col-1"></div>
+    <footer class="col align-self-center">
+      <p>При наличии ошибок, пожалуйста, сообщите, о них на почту: reviews.there@gmail.com</p>
+      <p>2023, Отзывы.тут</p>
+    </footer>
+    <div class="col-1"></div>
     </div>
 </div>
 

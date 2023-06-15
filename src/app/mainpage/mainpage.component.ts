@@ -4,10 +4,10 @@ import {environment} from 'src/environments/environment';
 import {FilmService} from '../services/film.service';
 import {FilmsListDTO} from "../dto/FilmsListDTO";
 import genres from "src/assets/genres.json";
-import years from "src/assets/years.json";
 import types from "src/assets/types.json";
 import {ActivatedRoute} from "@angular/router";
 import {SearchService} from "../services/search.service";
+import {filter} from "rxjs";
 
 @Component({
   selector: 'app-mainpage',
@@ -19,12 +19,15 @@ export class MainpageComponent implements OnInit {
   public films!: FilmsListDTO[];
   public apiServerUrl!: string;
   genresFilter:any;
-  yearsFilter:any;
   typesFilter:any;
-  public limit = 10;
-  public page=1;
+  // @ts-ignore
+  public limit: number;
+  // @ts-ignore
+  public page: number;
   public pagesQuantity! : number;
   public query!: string;
+  public yearStart!: string | null;
+  public yearEnd!: string | null;
 
 
   constructor(private filmService: FilmService, private route: ActivatedRoute) {
@@ -33,12 +36,16 @@ export class MainpageComponent implements OnInit {
   ngOnInit(): void {
     this.apiServerUrl = environment.apiBaseUrl;
     this.query="";
+    this.page=1;
+    this.limit=10;
+    sessionStorage.setItem("yearStart","");
+    sessionStorage.setItem("yearEnd","");
     this.genresFilter = genres;
-    this.yearsFilter = years;
     this.typesFilter = types;
+    this.yearStart = sessionStorage.getItem("yearStart");
+    this.yearEnd = sessionStorage.getItem("yearEnd");
     this.route.queryParams.subscribe(params=>{
       if(params['query']!="" && params['query']){
-        console.log("зашел")
         // @ts-ignore
         this.query=sessionStorage.getItem("searchQuery");
         // @ts-ignore
@@ -63,9 +70,11 @@ export class MainpageComponent implements OnInit {
         }
       }
     )
+    this.getPagesQuantity(filterString);
   }
 
   public getPagesQuantity(query:string): void{
+    console.log(this.page);
     this.filmService.getFilmsPagesQuantity(query, this.limit).subscribe(
       {
         error: (err: HttpErrorResponse) => {
@@ -80,8 +89,6 @@ export class MainpageComponent implements OnInit {
 
   applyFilters() {
     let filterString = this.composeQueryString(this.query);
-    console.log(this.query);
-    console.log(filterString);
     this.filmService.getSearchResults(filterString, this.limit, 1).subscribe(
       {
         error: (err: HttpErrorResponse) => {
@@ -89,35 +96,48 @@ export class MainpageComponent implements OnInit {
         },
         next: (response: FilmsListDTO[]) => {
           this.films = response;
+          // @ts-ignore
+          sessionStorage.setItem("yearStart", this.yearStart);
+          // @ts-ignore
+          sessionStorage.setItem("yearEnd", this.yearEnd);
         }
       }
     )
     this.getPagesQuantity(filterString);
   }
 
-  composeQueryString(res: string) {
-    for (let filter of [this.typesFilter, this.genresFilter, this.yearsFilter]) {
-      let map = new Map(Object.entries(filter));
-      for (let key of map.keys()) {
+  composeQueryString(query: string) {
+    let res = query;
+    let map: Map<string, Map<string, Map<string, string>>> = new Map;
+    for (let filter of [this.genresFilter, this.typesFilter]) {
+      map = new Map(Object.entries(filter));
+      for (let [key, value] of map) {
         // @ts-ignore
-        if (map.get(key)?.value == true) {
+        if ((map.get(key))?.value === true) {
           // @ts-ignore
           res += ("&" + map.get("paramName")  + "=" + map.get(key)?.name);
         }
       }
     }
-    console.log(res);
+    if(this.yearStart!="" && this.yearEnd=="") {
+      res += "&year=" + this.yearStart;
+    }
+    else if(this.yearStart=="" && this.yearEnd!=""){
+      res+= "&year=" + this.yearEnd;
+    }
+    else if(this.yearStart!="" && this.yearEnd!=""){
+      res+= "&year=" + this.yearStart + "-" + this.yearEnd;
+    }
     return res;
   }
 
   resetFilters(){
-    this.genresFilter = genres;
-    this.yearsFilter = years;
-    this.typesFilter = types;
-    this.getSearchResults(this.query, 1);
-    location.reload();
+    this.yearStart="";
+    this.yearEnd="";
+    sessionStorage.setItem("yearStart", this.yearEnd);
+    sessionStorage.setItem("yearEnd", this.yearEnd);
+    this.applyFilters();
   }
-
 
 }
 

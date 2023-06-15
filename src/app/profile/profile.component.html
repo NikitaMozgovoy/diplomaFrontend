@@ -1,0 +1,13 @@
+<div class="container">
+    <div class="col align-self-center justify-content-md-center main">
+
+      <p>Имя пользователя: {{user.username}}</p>
+      <p>Электронный адрес: {{user.email}}</p>
+      <p>Отзывы:</p>
+        <div *ngFor="let review of user.reviews">
+          <a routerLink="/films/{{review.filmId}}">{{review.filmName}}</a>
+          <p *ngIf="review.filmName">{{review.text}}</p>
+          <p *ngIf="review.filmName">{{review.rating}}</p>
+        </div>
+    </div>
+</div>
