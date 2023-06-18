@@ -12,6 +12,7 @@ import { SigninComponent } from './signin/signin.component';
 import { SignupComponent } from './signup/signup.component';
 import {NgOptimizedImage} from "@angular/common";
 import { ProfileComponent } from './profile/profile.component';
+import {EventEmitterService} from "./services/event-emitter.service";
 
 @NgModule({
   declarations: [
@@ -30,7 +31,9 @@ import { ProfileComponent } from './profile/profile.component';
         FormsModule,
         NgOptimizedImage
     ],
-  providers: [],
+  providers: [
+    EventEmitterService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

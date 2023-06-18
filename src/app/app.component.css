@@ -21,3 +21,6 @@ form{
 .form-inline{
   margin-right: 10%;
 }
+nav .collapse{
+  padding:0 10%;
+}

@@ -1,36 +1,59 @@
-<div class="row p-lg-1">
-<h2>Локальные отзывы</h2>
-<div *ngIf="film.localReviews.length==0; else local">Отзывов еще нет. Станьте первым!</div>
-  <div *ngIf="sessionStorage.getItem('username')!=null && !review">
-    <button id="add-button" data-bs-toggle="collapse" data-bs-target="#addCollapse" type="button">Оставить отзыв</button>
+<div class="row p-lg-2">
+  <h2>Локальные отзывы</h2>
+  <div *ngIf="film.localReviews.length==0 && !userId; else local">Отзывов еще нет. Станьте первым!</div>
+  <ng-template #local>
+    <div *ngIf="!currentUserReview && userId">
+      <span *ngIf="film.localReviews.length==0"><p>Отзывов еще нет. Станьте первым!</p></span>
+      <button id="add-button" data-bs-toggle="collapse" data-bs-target="#addCollapse" type="button">Оставить отзыв</button>
       <div class="collapse" id="addCollapse">
         <form #addForm="ngForm" (ngSubmit)="onAddReview(addForm, film.id)">
-          <textarea name="text" id="text" ngModel ></textarea>
-          <button type="submit">Save changes</button>
+          <label for="rating">Оценка: &nbsp;</label>
+          <input maxlength="2" id="rating" name="rating" size="1" min="1" max="10" type="number" ngModel>
+          <div class="form-text">
+            <textarea name="text" id="text" ngModel ></textarea>
+          </div>
+          <button type="submit">Сохранить</button>
         </form>
       </div>
-  </div>
-<ng-template #local>
-  <div *ngIf="review">
-    <div class="review-item">
-      <p><b>{{review.author.username}}</b></p>
-      <p>{{review.text}}</p>
     </div>
-    <button id="edit-button" data-bs-toggle="collapse" data-bs-target="#editCollapse" type="button">Редактировать</button>
-    <div class="collapse" id="editCollapse">
-      <form #editForm="ngForm" (ngSubmit)="onEditReview(editForm, review)">
-        <textarea name="editArea" id="editArea" [(ngModel)]="review.text"></textarea>
-        <button type="submit">Сохранить</button>
-      </form>
+    <div *ngIf="currentUserReview">
+      <div class="review-item">
+        <p><b>{{currentUserReview.author.username}}</b>
+          <span [ngSwitch]="currentUserReview.rating">
+          <ng-template ngSwitchCase="null">Пользователь не оставил оценку</ng-template>
+          <ng-template ngSwitchDefault> - {{currentUserReview.rating}}/10</ng-template>
+        </span></p>
+        <p>{{currentUserReview.text}}</p>
+        <button id="edit-button" data-bs-toggle="collapse" data-bs-target="#editCollapse" type="button">Редактировать</button>
+        <div class="collapse" id="editCollapse">
+          <form #editForm="ngForm" (ngSubmit)="onEditReview(editForm, currentUserReview)">
+            <label for="editRating">Оценка: &nbsp;</label>
+            <input maxlength="2" name="editRating" id="editRating" min="1" max="10" size="1" type="number" [(ngModel)]="currentUserReview.rating">
+            <div class="form-text">
+              <textarea name="editArea" id="editArea" [(ngModel)]="currentUserReview.text"></textarea>
+            </div>
+            <button (click)="document.getElementById('edit-button').click()" type="submit">Сохранить</button>
+          </form>
+        </div>
+      </div>
     </div>
-  </div>
-  <div *ngFor="let review of film.localReviews">
-    <div *ngIf="review!=this.review" class="review-item">
-      <p><b>{{review.author.username}}</b></p>
-      <p>{{review.text}}</p>
+    <div *ngFor="let review of film.localReviews">
+      <div *ngIf="review.id!=currentUserReview?.id" class="review-item">
+        <p><b>{{review.author.username}}</b>
+        <span [ngSwitch]="review.rating">
+          <ng-template ngSwitchCase="null">Пользователь не оставил оценку</ng-template>
+          <ng-template ngSwitchDefault> - {{review.rating}}/10</ng-template>
+        </span>
+        </p>
+        <p>{{review.text}}</p>
+      </div>
     </div>
-  </div>
-</ng-template>
+
+    <ng-container
+      [ngTemplateOutlet]="pagesMap.get('localPage')==1 || pagesMap.get('localPage')==2? startPages : pagesBlock"
+      [ngTemplateOutletContext]="{service:'localPage', pages:localReviewsPages}">
+    </ng-container>
+  </ng-template>
 
 
   <h2>Отзывы с Кинопоиск</h2>
@@ -40,19 +63,52 @@
       <p>{{review.review}}</p>
     </div>
   </div>
+    <ng-container
+      [ngTemplateOutlet]="pagesMap.get('kinopoiskPage')==1 || pagesMap.get('kinopoiskPage')==2? startPages : pagesBlock"
+      [ngTemplateOutletContext]="{service:'kinopoiskPage', pages:kinopoiskReviewsPages}">
+    </ng-container>
+
 
   <h2>Отзывы с TMDb</h2>
   <div *ngIf="film.tmdbReviews!=null; else noTmdb">
     <div *ngFor="let review of film.tmdbReviews">
       <div class="review-item">
-        <p><b>{{review.author}}</b></p>
-        <p>{{review.text}}</p>
-        <div [ngSwitch]="review.rating">
+        <p><b>{{review.author}}</b>
+        <span [ngSwitch]="review.rating">
           <ng-template ngSwitchCase="null">Пользователь не оставил оценку</ng-template>
-          <ng-template ngSwitchDefault>{{review.rating}}</ng-template>
-        </div>
+          <ng-template ngSwitchDefault> - {{review.rating}}/10</ng-template>
+        </span>
+        </p>
+        <p>{{review.text}}</p>
+
+        <button (click)="translateReview(review.id)">Перевести</button>
       </div>
     </div>
+
+    <ng-container
+      [ngTemplateOutlet]="pagesMap.get('tmdbPage')==1 || pagesMap.get('tmdbPage')==2? startPages : pagesBlock"
+      [ngTemplateOutletContext]="{service:'tmdbPage', pages:tmdbReviewsPages}">
+    </ng-container>
   </div>
-  <ng-template #noTmdb><p>Невозможно получить отзывы с сервиса или они отсутствуют. Попробуйте использовать ВПН </p></ng-template>
+  <ng-template #noTmdb><p>Невозможно получить отзывы с сервиса или они отсутствуют</p></ng-template>
 </div>
+
+<ng-template let-service="service" let-pages="pages" #pagesBlock>
+  <div style="text-align: center">
+    <a style="margin:2%; cursor:pointer" (click)="setReviewsPage( pagesMap.get(service)-1,service)">{{pagesMap.get(service)-1}}</a>
+    <a style="margin:2%; cursor:pointer" (click)="setReviewsPage(pagesMap.get(service)+0,service)" class="active-page">{{pagesMap.get(service)}}</a>
+    <a *ngIf="pagesMap.get(service)+1<=pages" style="margin:2%; cursor:pointer" (click)="setReviewsPage(pagesMap.get(service)+1, service)">{{pagesMap.get(service)+1}}</a>
+  </div>
+</ng-template>
+<ng-template let-service="service" let-pages="pages" #startPages>
+  <div style="text-align: center">
+  <a style="margin:2%; cursor:pointer" (click)="setReviewsPage(1, service)" [ngClass]="{'active-page': pagesMap.get(service)==1}" class="active-page">1</a>&ensp;
+  <ng-container [ngTemplateOutlet]="pages>1?secondPage:null"
+                [ngTemplateOutletContext]="{service:service}"></ng-container>
+  <ng-container [ngTemplateOutlet]="pages>2?thirdPage:null"
+                [ngTemplateOutletContext]="{service:service}"></ng-container>
+  </div>
+</ng-template>
+
+<ng-template let-service="service" #secondPage><a style="margin:2%; cursor:pointer" (click)="setReviewsPage(2, service)">2</a>&ensp;</ng-template>
+<ng-template let-service="service" #thirdPage><a style="margin:2%; cursor:pointer" (click)="setReviewsPage(3, service)">3</a>&ensp;</ng-template>

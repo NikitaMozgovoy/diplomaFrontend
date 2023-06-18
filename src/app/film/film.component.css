@@ -3,3 +3,15 @@ article{
   background: white;
   padding:5%;
 }
+li{
+  list-style: none;
+}
+ul{
+  padding:0 !important;
+}
+.col-8{
+  font-size: 20px;
+}
+h2, h3, h4, h5, h6{
+  padding:0 !important;
+}

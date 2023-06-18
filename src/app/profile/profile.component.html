@@ -1,13 +1,23 @@
-<div class="container">
+<div class="container" xmlns="http://www.w3.org/1999/html">
     <div class="col align-self-center justify-content-md-center main">
-
-      <p>Имя пользователя: {{user.username}}</p>
-      <p>Электронный адрес: {{user.email}}</p>
-      <p>Отзывы:</p>
-        <div *ngFor="let review of user.reviews">
-          <a routerLink="/films/{{review.filmId}}">{{review.filmName}}</a>
-          <p *ngIf="review.filmName">{{review.text}}</p>
-          <p *ngIf="review.filmName">{{review.rating}}</p>
+      <span *ngIf="user; else needAuth">
+        <p>Имя пользователя: {{user.username}}</p>
+        <p>Электронный адрес: {{user.email}}</p>
+        <p>Всего отзывов: {{user.reviews.length}}</p>
+        <p>Отзывы:</p>
+        <div class="review-item" *ngFor="let review of user.reviews">
+          <p><a class="film-link" routerLink="/films/{{review.filmId}}">{{review.filmName}}</a></p>
+          <span [ngSwitch]="review.rating">
+            <ng-template ngSwitchCase="null">Пользователь не оставил оценку</ng-template>
+            <ng-template ngSwitchDefault>Оценка: {{review.rating}}/10</ng-template>
+          </span>
+          <p>{{review.text}}
+          </p>
         </div>
+      </span>
     </div>
 </div>
+
+<ng-template #needAuth>
+  <p>Для просмотра профиля необходимо совершить <a href="/signin">вход</a></p>
+</ng-template>

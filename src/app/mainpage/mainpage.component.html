@@ -1,11 +1,10 @@
-<div class="container">
+<div class="container filters">
   <div class="row">
     <nav class="col-3">
       <h2>Фильтры</h2>
       <form #filterForm="ngForm">
-        <button (click)="filterForm.resetForm(); resetFilters()">Сбросить</button>
-        <div>
-          <p>Жанры:</p>
+        <p>Жанры:</p>
+        <div class="genres-filter">
           <div>
             <input id="anime" name="anime" type="checkbox" [(ngModel)]="genresFilter.anime.value" />
             <label for="anime">Аниме</label>
@@ -137,33 +136,54 @@
           <label>Введите диапазон годов или только начальный, если нужен конкретный</label>
           <p><input class="yearField" type="text" maxlength="4" name="yearStart" [(ngModel)]="yearStart"> - <input class="yearField" name="yearEnd" type="text" maxlength="4" [(ngModel)]="yearEnd"></p>
         </div>
-        <button (click)="applyFilters()" >Применить</button>
+        <button class="me-3" (click)="applyFilters()" >Применить</button>
+        <button class="mb-2" (click)="filterForm.resetForm(); resetFilters()">Сбросить</button>
       </form>
     </nav>
     <div class="col">
-      <aside class="col-12"><h3>Отзывы о фильмах и кино</h3>
+      <aside *ngIf="!query" class="col-12"><h3>Отзывы о фильмах и кино</h3>
         Ежегодно во всем мире снимают сотни фильмов, сериалов и аниме. Выбрать что-то действительно интересное, ориентируясь лишь по  описаниям и трейлерам крайне сложно, ведь создатели всеми силами  стараются заинтересовать зрителей ради прибылей. Действительно понять, хороша ли кинолента и чего именно ждать от просмотра, позволяют лишь отзывы, оставленные самими зрителями.
       </aside>
       <div class="row">
         <article class="col-12">
-          <h2>Список новинок</h2>
-          <p>Сортировка: год выхода     оценка     название</p>
+          <h2>Список результатов</h2>
           <p>Отображать на странице: </p>
-          <button (click)="this.limit=10; getSearchResults(this.query, this.page)">10</button>
-          <button (click)="this.limit=15; getSearchResults(this.query, this.page)">15</button>
-          <button (click)="this.limit=20; getSearchResults(this.query, this.page)">20</button>
+          <a style="cursor:pointer;" [ngClass]="{'current-limit':this.limit==10}" (click)="this.limit=10; getSearchResults(this.query, this.page)">10</a>&nbsp;&nbsp;&nbsp;
+          <a style="cursor:pointer;" [ngClass]="{'current-limit':this.limit==15}" (click)="this.limit=15; getSearchResults(this.query, this.page)">15</a>&nbsp;&nbsp;&nbsp;
+          <a style="cursor:pointer;" [ngClass]="{'current-limit':this.limit==20}" (click)="this.limit=20; getSearchResults(this.query, this.page)">20</a>
           <div style="background-color: transparent !important;" *ngFor="let film of films">
               <div style="display: inline-block" class="container item-card">
                 <a routerLink="/films/{{film.id}}"><img style="float: left; margin-right: 2%;" ngSrc="{{film.posterUrl}}" [width]="175" [height]="260"></a>
                 <div>
-                  <h3 style="margin:0"><a routerLink="/films/{{film.id}}">{{film?.name}} ({{film.year}})</a></h3>
+                  <ul>
+                    <li>
+                      <h3 class="m-0"><a routerLink="/films/{{film.id}}">{{film?.name}} <span *ngIf="film.alternativeName">({{film.alternativeName}})</span></a></h3>
+                    </li>
+                    <li>
+                      <b>Год выхода: </b> {{film.year}}
+                    </li>
+                    <li>
+                      <b>Жанры: </b><span *ngFor="let genre of film.genresList">{{genre}}&nbsp;&nbsp;</span>
+                    </li>
+                    <li>
+                      <b>Страны: </b> <span *ngFor="let country of film.countriesList">{{country}}&nbsp;&nbsp;</span>
+                    </li>
+                    <li><b>Кинопоиск:</b> {{film.kinopoiskRating}}/10</li>
+                    <li><b>IMDb: </b>
+                      <span [ngSwitch]="film.imdbRating">
+                        <ng-template ngSwitchCase="null">Нет рейтинга</ng-template>
+                        <ng-template ngSwitchDefault>{{film.imdbRating}}/10</ng-template>
+                      </span>
+                    </li>
+                    <li>{{film.shortDescription}}</li>
+                  </ul>
                 </div>
               </div>
           </div>
           <div>
             <div style="text-align: center" *ngIf="this.page==1 || this.page==2; else pagesBlock">
 
-              <a class="disabled" style="margin:2%; cursor:pointer" (click)="this.page=1; getSearchResults(this.query, this.page)">&laquo;</a>
+              <a href="#" class="disabled" style="margin:2%; cursor:pointer" (click)="this.page=1; getSearchResults(this.query, this.page)">&laquo;</a>
               <a href="#" style="margin:2%;" (click)="this.page=1; getSearchResults(this.query, page)" [ngClass]="{'active-page': page==1}" class="active-page">1</a>&ensp;
               <span *ngIf="pagesQuantity>1; then secondPage"></span>
               <span *ngIf="pagesQuantity>2; then thirdPage"></span>
@@ -174,11 +194,11 @@
             <ng-template #thirdPage><a href="#" style="margin:2%; cursor:pointer" (click)="this.page=3; getSearchResults(this.query, page)">3</a>&ensp;</ng-template>
             <ng-template #pagesBlock>
               <div style="text-align: center">
-                <a style="margin:2%; cursor:pointer" (click)="this.page=1; getSearchResults(this.query, this.page)">&laquo;</a>
-                <a style="margin:2%; cursor:pointer" (click)="this.page=this.page-1; getSearchResults(this.query, this.page)">{{page-1}}</a>
-                <a style="margin:2%; cursor:pointer" (click)="getSearchResults(this.query, page+1)" class="active-page">{{page}}</a>
-                <a *ngIf="page+1<=pagesQuantity" style="margin:2%; cursor:pointer" (click)="this.page=this.page+1; getSearchResults(this.query, this.page)">{{page+1}}</a>
-                <a style="margin:2%; cursor:pointer" (click)="this.page=this.pagesQuantity; getSearchResults(this.query, this.page)">&raquo;</a>
+                <a href="#" style="margin:2%; cursor:pointer" (click)="this.page=1; getSearchResults(this.query, this.page)">&laquo;</a>
+                <a href="#" style="margin:2%; cursor:pointer" (click)="this.page=this.page-1; getSearchResults(this.query, this.page)">{{page-1}}</a>
+                <a href="#" style="margin:2%; cursor:pointer" (click)="getSearchResults(this.query, page+1)" class="active-page">{{page}}</a>
+                <a href="#" *ngIf="page+1<=pagesQuantity" style="margin:2%; cursor:pointer" (click)="this.page=this.page+1; getSearchResults(this.query, this.page)">{{page+1}}</a>
+                <a href="#" style="margin:2%; cursor:pointer" (click)="this.page=this.pagesQuantity; getSearchResults(this.query, this.page)">&raquo;</a>
               </div>
             </ng-template>
           </div>

@@ -2,11 +2,14 @@ export class FilmsListDTO {
   constructor(
     public id: number,
     public name: string,
+    public alternativeName: string,
     public year: number,
-    public countries: any,
+    public kinopoiskRating: number,
+    public imdbRating: number,
     public posterUrl: string,
-    public genres: any,
+    public genresList: Array<string>,
+    public countriesList: Array<string>,
     public type: string,
-    public description: string
+    public shortDescription: string
   ) {}
 }

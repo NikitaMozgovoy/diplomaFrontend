@@ -58,7 +58,6 @@ export class MainpageComponent implements OnInit {
 
   getSearchResults(query: string, pageNumber: number) {
     let filterString = this.composeQueryString(query);
-    console.log(filterString);
     // @ts-ignore
     this.filmService.getSearchResults(filterString, this.limit, pageNumber).subscribe(
       {
@@ -74,7 +73,6 @@ export class MainpageComponent implements OnInit {
   }
 
   public getPagesQuantity(query:string): void{
-    console.log(this.page);
     this.filmService.getFilmsPagesQuantity(query, this.limit).subscribe(
       {
         error: (err: HttpErrorResponse) => {

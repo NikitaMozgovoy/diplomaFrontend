@@ -30,6 +30,28 @@ article a{
 .yearField{
   width:40%;
 }
-.active-page{
+.active-page, .current-limit{
   font-weight: bold;
+}
+ul{
+  list-style: none;
+  padding: 0 !important;
+}
+.filters button{
+  border-radius: 5%;
+  color: black;
+  transition-duration: 0.4s;
+  background-color:white;
+}
+.filters button:hover{
+  border: 2px dashed #008CBA;
+}
+.genres-filter {
+  height: 450px;
+  overflow:hidden; overflow-y:scroll;
+}
+.filters nav{
+  height: 40%;
+  top:20px;
+  position: sticky;
 }

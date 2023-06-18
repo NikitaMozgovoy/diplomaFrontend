@@ -7,22 +7,82 @@
           </div>
           <div class="col-8">
             <h1>{{film.name}} ({{film.year}})</h1>
-
-            Жанры:
-            <div class="row d-inline-block" *ngFor="let genre of film.genresList">
-              <h6 class="m-0">{{genre}}&nbsp;&nbsp;</h6>
-            </div>
-            <br/>
-            Режиссеры:
-            <div class="row d-inline-block" *ngFor="let director of film.director">
-              <h6 class="m-0">{{director}}</h6>
-            </div>
-            <br/>
-            Страны:
-            <div class="row d-inline-block m-0" *ngFor="let country of film.countriesList">
-              <h6>{{country}} &nbsp;&nbsp;</h6>
-            </div>
+            <ul>
+              <li>
+                Оригинальное название:
+                <div class="row d-inline-block">
+                  <h5 class="m-0">{{film.alternativeName}}</h5>
+                </div>
+              </li>
+              <li>
+                Жанры:
+                <div class="row d-inline-block" *ngFor="let genre of film.genresList">
+                  <h5 class="m-0">{{genre}}&nbsp;&nbsp;</h5>
+                </div>
+              </li>
+              <li>
+                Страны:
+                <div class="row d-inline-block m-0" *ngFor="let country of film.countriesList">
+                  <h5 class="m-0">{{country}} &nbsp;&nbsp;</h5>
+                </div>
+              </li>
+              <li>
+                Продолжительность:
+                <div class="row d-inline-block m-0">
+                  <h5 class="m-0">{{film.movieLength}} мин</h5>
+                </div>
+              </li>
+              <li>
+                Возрастной рейтинг:
+                <div class="row d-inline-block m-0">
+                  <h5 class="m-0">{{film.ageRating}}+</h5>
+                </div>
+              </li>
+              <li>
+                В ролях:
+                <div class="row d-inline-block" *ngFor="let actor of film.actors">
+                  <h5 class="m-0">{{actor}}&nbsp;&nbsp;&nbsp;</h5>
+                </div>
+              </li>
+              <li>
+                Режиссеры:
+                <div class="row d-inline-block" *ngFor="let director of film.directors">
+                  <h5 class="m-0">{{director}}&nbsp;&nbsp;&nbsp;</h5>
+                </div>
+              </li>
+              <li>
+                Продюсеры:
+                <div class="row d-inline-block" *ngFor="let producer of film.producers">
+                  <h5 class="m-0">{{producer}}&nbsp;&nbsp;&nbsp;</h5>
+                </div>
+              </li>
+              <br/>
+              <li>
+                Рейтинг Кинопоиск:
+                <div class="row d-inline-block">
+                  <h5 *ngIf="film.kinopoiskRating;else noRatingBlock" class="m-0">{{film.kinopoiskRating}}&nbsp;&nbsp;&nbsp;&nbsp;</h5>
+                </div>
+                Рейтинг сервиса:
+                <div class="row d-inline-block">
+                  <h5 *ngIf="film.localRating;else noRatingBlock" class="m-0">{{film.localRating}}</h5>
+                </div>
+              </li>
+              <li>
+                Рейтинг IMDb:
+                <div class="row d-inline-block">
+                  <h5 *ngIf="film.imdbRating;else noRatingBlock" class="m-0">{{film.imdbRating}}&nbsp;&nbsp;&nbsp;&nbsp;</h5>
+                </div>
+                Рейтинг TMDb:
+                <div class="row d-inline-block">
+                  <h5 *ngIf="film.tmdbRating;else noRatingBlock" class="m-0">{{film.tmdbRating}}</h5>
+                </div>
+              </li>
+            </ul>
           </div>
+        </div>
+        <div class="row mb-2 p-lg-2 mt-3">
+          <h2 class="m-0">Описание</h2>
+          {{film.description}}
         </div>
       </div>
 
@@ -31,3 +91,7 @@
 
 
 </article>
+
+<ng-template #noRatingBlock>
+  <h5 class="m-0">Нет оценок</h5>
+</ng-template>
