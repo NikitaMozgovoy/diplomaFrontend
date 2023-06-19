@@ -2,6 +2,7 @@ article{
   margin: 25px auto;
   background: white;
   padding:5%;
+  min-height: 1000px;
 }
 li{
   list-style: none;

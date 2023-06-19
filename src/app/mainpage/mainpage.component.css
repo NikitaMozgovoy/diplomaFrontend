@@ -2,6 +2,7 @@ article{
   margin: 30px 45px 0 0;
   padding:60px;
   background: white;
+  min-height:1000px;
 }
 aside{
   margin:25px 45px 0 0;
@@ -52,6 +53,6 @@ ul{
 }
 .filters nav{
   height: 40%;
-  top:20px;
+  top:0;
   position: sticky;
 }

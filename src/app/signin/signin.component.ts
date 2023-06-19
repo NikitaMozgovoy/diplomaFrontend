@@ -13,8 +13,6 @@ export class SigninComponent {
   };
 
   isLoggedIn = false;
-  isLoginFailed = false;
-  role: string = '';
 
   constructor(private signinService: SigninService) { }
 

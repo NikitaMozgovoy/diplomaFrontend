@@ -22,7 +22,6 @@ export class SignupComponent implements OnInit{
     const { username, email, password } = this.form;
     this.signupService.signUp(username, email, password).subscribe(
       ( response: string) => {
-        console.log(response);
         location.replace('/signin');
       }
     )
